@@ -1,0 +1,62 @@
+In order to clone the repository:
+
+git clone https://github.com/DaeyongK/Data_science_project
+
+Then, open up the project preferably with the Atom text editor
+  - If you are using Atom, it is very helpful to have a command line with Atom; search up how to install a command line on Atom
+  - You can also look into other tools like Python autocomplete or Django highlighting with Atom
+
+If you are going to work with this project, I recommend you set up a Conda Virtual Environment for Django:
+  - https://heartbeat.fritz.ai/creating-python-virtual-environments-with-conda-why-and-how-180ebd02d1db (You can ignore the second part)
+  - Make sure you specify python=3.8.5 so that it gets the newest version of Python
+  - After creating a virtual environment, activate it (conda activate name_of_virtual_environment)
+  - Once activated, install the newest version of Django in the command line (pip install Django==3.1.1)
+
+Now your environment should be set up!
+  - Something cool you can do in your environment to check all of the packages installed onto it, type into the command line:
+
+  pip freeze
+
+  - This will show you all of your libraries installed into your virtual environment, and you can use this to check your Django version
+  - To check Python version, just type in the command line:
+
+  python3 --version
+
+  - That will give you your Python 3 version. I'm on 3.8.2, but the newest is 3.8.5. I'm just too lazy to update it.
+
+Next step is to pull the remote repository in github into your local repository by typing in the command line:
+
+git pull https://github.com/DaeyongK/Data_science_project
+
+Now you can edit the files in your local repository, and even add in new files if you want!
+
+After you are done making progress, type in your command line:
+
+git status
+
+If you actually made changes, there should be file names in red that need to be added and committed
+
+Your next step is to type in the command line:
+
+git add .
+
+This will add all of the changes you made to the project and prepare them for a commit (Yes, the period is needed)
+
+If you type in 'git status' again in your command line, you should get something like:
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        The changes that you made
+
+It's finally time to commit, and you can do this by typing in the command line:
+
+git commit -m 'Your commit message'
+  - Make sure your commit message is something meaningful, like 'Added in find the average algorithm'
+
+Finally, to push these changes to the remote repository up in github, type in your command line:
+
+git push -u origin master
+
+This should have effectively pushed all of the changes you have made to github
+Just in case, check github to see that your changes have been made
+
+If you have any questions, Discord me!
