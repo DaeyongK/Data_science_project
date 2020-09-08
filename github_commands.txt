@@ -24,7 +24,7 @@ Now your environment should be set up!
 
   - That will give you your Python 3 version. I'm on 3.8.2, but the newest is 3.8.5. I'm just too lazy to update it.
 
-Next step is to pull the remote repository in github into your local repository by typing in the command line:
+Next step is to pull the remote repository in GitHub into your local repository by typing in the command line:
 
 git pull https://github.com/DaeyongK/Data_science_project
 
@@ -52,11 +52,11 @@ It's finally time to commit, and you can do this by typing in the command line:
 git commit -m 'Your commit message'
   - Make sure your commit message is something meaningful, like 'Added in find the average algorithm'
 
-Finally, to push these changes to the remote repository up in github, type in your command line:
+Finally, to push these changes to the remote repository up in GitHub, type in your command line:
 
 git push -u origin master
 
-This should have effectively pushed all of the changes you have made to github
-Just in case, check github to see that your changes have been made
+This should have effectively pushed all of the changes you have made to GitHub
+Just in case, check GitHub to see that your changes have been made
 
 If you have any questions, Discord me!
