@@ -1,0 +1,15 @@
+Preprocessing:
+
+- Lower resolution
+- Select range
+- Transform (flip columns and rows, reverse direction, etc.)
+
+Main Algorithms:
+
+- Descriptive Statistics
+	- Mean, median, mode
+	- Range, quartiles, standard deviation
+- Gaussian Smoothing (https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_filter.html)
+- Density Function (https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.density.html)
+
+Once we implement these we can try moving onto image processing or comparing sources
