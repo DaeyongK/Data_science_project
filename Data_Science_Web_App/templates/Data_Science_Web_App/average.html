@@ -1,0 +1,29 @@
+{% extends 'Data_Science_Web_App/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Average of a list of numbers</h1>
+    <br>
+    <p>Given a list of numbers, the average of the numbers will be displayed</p>
+    <form enctype='multipart/form-data' method="POST">
+      {% csrf_token %}
+      <label>Please upload a CSV file with only numbers</label>
+      <br>
+      <br>
+      <input type="file" name="file_name">
+      <br>
+      <br>
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h2>Here is the average of all of the numbers inside of your CSV file:</h2>
+    <br>
+    <h3>{{num}}</h3>
+  </div>
+
+</div>
+{% endblock %}
