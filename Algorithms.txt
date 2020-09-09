@@ -1,3 +1,5 @@
 This will be the txt file with all of the algorithms
 
 Average
+
+Range
