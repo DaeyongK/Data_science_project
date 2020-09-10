@@ -11,23 +11,25 @@ import matplotlib as matplotlib
 import matplotlib.pyplot as pyplot
 
 #File read
-fileInput = pandas.read_csv("C:/Users/miked/Downloads/ford_escort.csv", sep=',')
+fileInput = pandas.read_csv("C:/Users/miked/Downloads/hw_25000.csv", sep=',')
 #Which data column is x 
-xColNInput = 0
+xColNInput = 1
 #Which data column is y 
 yColNInput = 2
 #X axis label
-xLblInput = None
+xLblInput = "Height (Inches)"
 #Y axis label
-yLblInput = "Price ($)"
+yLblInput = "Weight (Lbs)"
 #Title
 ttlInput = None
 #X axis range
-xRInput = [1994.5, 1998.5]
+xRInput = None
 #Y axis range
 yRInput = None
+#Alpha
+alphaValInput = 0.1
 
-def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR):
+def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, alphaVal):
     #Selects user input columns
     xCol = file.iloc[:, xColN]
     yCol = file.iloc[:, yColN]
@@ -36,13 +38,17 @@ def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR):
     matplotlib.rcParams['font.sans-serif'] = "Times New Roman"
     matplotlib.rcParams['font.family'] = "sans-serif"
     matplotlib.rcParams.update({'font.size': 15})
+    matplotlib.rcParams['text.color'] = "black"
+    matplotlib.rcParams['axes.labelcolor'] = "black"
+    matplotlib.rcParams['xtick.color'] = "black"
+    matplotlib.rcParams['ytick.color'] = "black"
 
     #Creates figure
     fig = pyplot.figure()
     ax = fig.add_subplot()
 
     #Creates scatter plot
-    ax.scatter(xCol, yCol, marker = "x", color = "red")
+    ax.scatter(xCol, yCol, marker = ".", color = "tab:orange", alpha = alphaVal)
 
     #If axes labels not given, uses dataframe headers
     if xLbl == None:
@@ -73,10 +79,7 @@ def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR):
     return fig
 
 #Execute
-fig1 = xyplot(fileInput, xColNInput, yColNInput, xLblInput, yLblInput, ttlInput, xRInput, yRInput)
+fig1 = xyplot(fileInput, xColNInput, yColNInput, xLblInput, yLblInput, ttlInput, xRInput, yRInput, alphaValInput)
 
 #Display Figure
 pyplot.show()
-
-
-
