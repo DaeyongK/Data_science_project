@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from Data_Science_Web_App.algorithms.average import average
+from Data_Science_Web_App.algorithms.average import average, median
 # Create your views here.
 
 class IndexView(TemplateView):
@@ -12,12 +12,16 @@ class AboutView(TemplateView):
 def get_average(request):
     template_name = 'Data_Science_Web_App/average.html'
 
+
     if request.method == "GET":
         context={
-            'num': 'Please upload a CSV file'
+            'num': 'Please upload a CSV file',
+            'left': 'Please upload a CSV file',
+            'mid': 'Please upload a CSV file',
+            'right': 'Please upload a CSV file'
         }
         return render(request, template_name, context)
-
+    #Vulnerability
     csv_file = request.FILES['file_name']
 
     if not csv_file.name.endswith('.csv'):
@@ -28,8 +32,14 @@ def get_average(request):
     data_set = csv_file.read().decode('UTF-8')
 
     avgNum = average(data_set)
+    left,mid,right = median(data_set)
 
-    context={
-        'num': avgNum
+
+
+    context = {
+        'num': avgNum,
+        'left': left,
+        'mid': mid,
+        'right': right
     }
     return render(request, template_name, context)

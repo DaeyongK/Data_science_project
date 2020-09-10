@@ -22,7 +22,26 @@
   <div class="container">
     <h2>Here is the average of all of the numbers inside of your CSV file:</h2>
     <br>
-    <h3>{{num}}</h3>
+    <h3>{{ num }}</h3>
+  </div>
+
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    {% if left == 'is' %}
+      <h2>Here is the median of all of the numbers inside of your CSV file:</h2>
+      <br>
+      <h3>{{ mid }}</h3>
+    {% else %}
+      <h2>Here is the median of all of the numbers inside of your CSV file:</h2>
+      <br>
+      <h3>Left Median: {{ left }}</h3>
+      <br>
+      <h3>Median: {{ mid }}</h3>
+      <br>
+      <h3>Right Median: {{ right }}</h3>
+    {% endif %}
   </div>
 
 </div>
