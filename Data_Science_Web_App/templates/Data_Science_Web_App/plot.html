@@ -1,0 +1,17 @@
+{% extends 'Data_Science_Web_App/base.html' %}
+{% block body_block %}
+  <div class="jumbotron">
+    <div class="container">
+      <form enctype="multipart/form-data" method="post">
+        {{form.as_p}}
+        {% csrf_token %}
+        <input type="submit" class='btn btn-primary' value="Submit">
+      </form>
+      <br>
+      <br>
+      <br>
+      <br>
+      {{ img|safe }}
+    </div>
+  </div>
+{% endblock %}

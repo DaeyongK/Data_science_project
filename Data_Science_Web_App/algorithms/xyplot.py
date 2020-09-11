@@ -10,24 +10,24 @@ import pandas as pandas
 import matplotlib as matplotlib
 import matplotlib.pyplot as pyplot
 
-#File read
-fileInput = pandas.read_csv("C:/Users/miked/Downloads/hw_25000.csv", sep=',')
-#Which data column is x 
-xColNInput = 1
-#Which data column is y 
-yColNInput = 2
-#X axis label
-xLblInput = "Height (Inches)"
-#Y axis label
-yLblInput = "Weight (Lbs)"
-#Title
-ttlInput = None
-#X axis range
-xRInput = None
-#Y axis range
-yRInput = None
-#Alpha
-alphaValInput = 0.1
+# #File read
+# fileInput = pandas.read_csv("C:/Users/miked/Downloads/hw_25000.csv", sep=',')
+# #Which data column is x
+# xColNInput = 1
+# #Which data column is y
+# yColNInput = 2
+# #X axis label
+# xLblInput = "Height (Inches)"
+# #Y axis label
+# yLblInput = "Weight (Lbs)"
+# #Title
+# ttlInput = None
+# #X axis range
+# xRInput = None
+# #Y axis range
+# yRInput = None
+# #Alpha
+# alphaValInput = 0.1
 
 def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, alphaVal):
     #Selects user input columns
@@ -46,7 +46,7 @@ def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, alphaVal):
     #Creates figure
     fig = pyplot.figure()
     ax = fig.add_subplot()
-
+    alphaVal /= 100
     #Creates scatter plot
     ax.scatter(xCol, yCol, marker = ".", color = "tab:orange", alpha = alphaVal)
 
@@ -69,17 +69,17 @@ def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, alphaVal):
         ax.set_title(yLblF + " vs. " + xLblF)
     else:
         ax.set_title(ttl)
-        
+
     if xR != None:
         ax.set_xlim(xR[0], xR[1])
     if yR != None:
         ax.set_ylim(yR[0], yR[1])
-        
+
     #Return figure
     return fig
 
 #Execute
-fig1 = xyplot(fileInput, xColNInput, yColNInput, xLblInput, yLblInput, ttlInput, xRInput, yRInput, alphaValInput)
+# fig1 = xyplot(fileInput, xColNInput, yColNInput, xLblInput, yLblInput, ttlInput, xRInput, yRInput, alphaValInput)
 
 #Display Figure
-pyplot.show()
+# pyplot.show()
