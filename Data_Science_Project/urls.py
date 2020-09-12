@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from Data_Science_Web_App import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.IndexView.as_view(), name='IndexView'),
     path('Data_Science_Web_App/', include('Data_Science_Web_App.urls'))
-]
+]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

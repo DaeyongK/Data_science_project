@@ -11,7 +11,11 @@
       <br>
       <br>
       <br>
-      {{ img|safe }}
+      {% if success %}
+        <img src="/media/graphs/graph.png" alt="Graph was not displayed for some reason">
+      {% else %}
+        {{ img }}
+      {% endif %}
     </div>
   </div>
 {% endblock %}

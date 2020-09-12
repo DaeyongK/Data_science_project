@@ -3,10 +3,14 @@ from django.views.generic import TemplateView
 from Data_Science_Web_App.algorithms.average import average, median
 from Data_Science_Web_App.algorithms.xyplot import xyplot
 from . import forms
+import os
 import pandas
 import mpld3
 
 # Create your views here.
+
+graph_path = os.path.abspath('media/graphs')
+
 
 class IndexView(TemplateView):
     template_name = 'Data_Science_Web_App/index.html'
@@ -71,6 +75,7 @@ def plot(request):
 
     form = forms.PlotChartForm()
     context={
+        'success': False,
         'form': form,
         'img': 'Please fill out the required fields!'
     }
@@ -94,6 +99,7 @@ def plot(request):
 
             if not data_file.name.endswith('.csv'):
                 context={
+                    'success': False,
                     'form': form,
                     'img': 'The input type was invalid; did you make sure you used a CSV file?'
                 }
@@ -109,13 +115,18 @@ def plot(request):
             # print(xIndex, yIndex, xLabel, yLabel, title, xR, yR, alphaVal)
             # try:
             figure = xyplot(data_set, xIndex, yIndex, xLabel, yLabel, title, xR, yR, alphaVal)
-            figure = mpld3.fig_to_html(figure)
+
+            graph_image = 'graph.png'
+
+            figure.savefig(os.path.join(graph_path, graph_image))
+            # figure = mpld3.fig_to_html(figure)
             # except:
             #     figure = 'Something went wrong! Please make sure all of your inputs are valid inputs'
 
             context = {
+                'success': True,
                 'form': form,
-                'img': figure
+                'img': 'Data_Science_Web_App/graphs/graph.png'
             }
 
 
