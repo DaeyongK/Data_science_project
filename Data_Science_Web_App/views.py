@@ -7,21 +7,26 @@ import os
 import pandas
 import mpld3
 
-# Create your views here.
-
+#Media file DIR
 graph_path = os.path.abspath('media/graphs')
 
+# Create your views here.
 
+
+#CBVs
 class IndexView(TemplateView):
     template_name = 'Data_Science_Web_App/index.html'
 
 class AboutView(TemplateView):
     template_name = 'Data_Science_Web_App/about.html'
 
+
+#Function-based views
 def get_average(request):
+
     template_name = 'Data_Science_Web_App/average.html'
 
-
+    #Default rendering
     if request.method == "GET":
         context={
             'num': 'Please upload a CSV file',
@@ -30,6 +35,7 @@ def get_average(request):
             'right': 'Please upload a CSV file'
         }
         return render(request, template_name, context)
+
     #Vulnerability
     csv_file = request.FILES['file_name']
 
@@ -39,6 +45,7 @@ def get_average(request):
         }
         return render(request, template_name, context)
     data_set = csv_file.read().decode('UTF-8')
+
 
     avgNum = average(data_set)
     left,mid,right = median(data_set)
@@ -63,26 +70,23 @@ def get_average(request):
 
 
 def plot(request):
+
+    #All basic variables
     template_name = 'Data_Science_Web_App/plot.html'
-
-
-    # if request.method == "GET":
-    #     context={
-    #
-    #     }
-    #     return render(request, template_name, context)
-    # #Vulnerability
-
     form = forms.PlotChartForm()
     context={
         'success': False,
         'form': form,
-        'img': 'Please fill out the required fields!'
+        'error_message': 'Please fill out the required fields!'
     }
+
+
     if request.method == 'POST':
 
         form = forms.PlotChartForm(request.POST, request.FILES)
 
+
+        #Checking if all fields are valid
         if form.is_valid():
 
             data_file = form.cleaned_data['data_file']
@@ -98,36 +102,45 @@ def plot(request):
             alphaVal = form.cleaned_data['alphaVal']
 
             if not data_file.name.endswith('.csv'):
+
                 context={
                     'success': False,
                     'form': form,
-                    'img': 'The input type was invalid; did you make sure you used a CSV file?'
+                    'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
                 }
+
                 return render(request, template_name, context)
 
+
+            #Reading data_file with pandas, so that data_set is now a pandas dataframe
             data_set = pandas.read_csv(data_file)
-            # .decode('UTF-8')
-
-
             xR = [lowerX, upperX]
             yR = [lowerY, upperY]
-            # print(type(xIndex))
-            # print(xIndex, yIndex, xLabel, yLabel, title, xR, yR, alphaVal)
-            # try:
-            figure = xyplot(data_set, xIndex, yIndex, xLabel, yLabel, title, xR, yR, alphaVal)
 
-            graph_image = 'graph.png'
+            #Trying to create a plot with given fields, and if successful save it
+            try:
+                figure = xyplot(data_set, xIndex, yIndex, xLabel, yLabel, title, xR, yR, alphaVal)
 
-            figure.savefig(os.path.join(graph_path, graph_image))
-            # figure = mpld3.fig_to_html(figure)
-            # except:
-            #     figure = 'Something went wrong! Please make sure all of your inputs are valid inputs'
+                graph_image = 'graph.png'
 
+                figure.savefig(os.path.join(graph_path, graph_image))
+
+            except:
+
+                #Returning error message on failure
+                context={
+                    'success': False,
+                    'form': form,
+                    'error_message': 'Something went wrong with creating the graph. Did you format your data properly?'
+                }
+
+                return render(request, template_name, context)
+
+            #The final context dictionary with success being true. In this case, the error_message shouldn't pop up
             context = {
                 'success': True,
                 'form': form,
-                'img': 'Data_Science_Web_App/graphs/graph.png'
+                'error_message': 'The graph should have been here, but something went wrong'
             }
-
 
     return render(request, template_name, context)

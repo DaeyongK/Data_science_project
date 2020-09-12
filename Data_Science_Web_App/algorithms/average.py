@@ -1,13 +1,13 @@
 import statistics
 
-def average(file):
-    intAr = file.split(',')
+def average(df):
+    intAr = df.split(',')
     nums = list(map(int, intAr))
     avg = statistics.mean(nums)
     return(avg)
 
-def median(file):
-    intAr = file.split(',')
+def median(df):
+    intAr = df.split(',')
     intAr.sort()
     middleIndex = len(intAr)/2
     intMiddleIndex = int(middleIndex)
