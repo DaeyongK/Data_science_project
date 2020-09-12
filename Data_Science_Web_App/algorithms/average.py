@@ -19,3 +19,9 @@ def median(df):
         leftNum = int(intAr[intMiddleIndex - 1])
         trueMid = int((rightNum + leftNum)/2)
         return(leftNum, trueMid, rightNum)
+
+def mode(df):
+    intAr = df.split(',')
+    nums = list(map(int, intAr))
+    mode = statistics.mode(nums)
+    return(mode)
