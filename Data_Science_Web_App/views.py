@@ -119,6 +119,7 @@ def plot(request):
 
             #Trying to create a plot with given fields, and if successful save it
             try:
+
                 figure = xyplot(data_set, xIndex, yIndex, xLabel, yLabel, title, xR, yR, alphaVal)
 
                 graph_image = 'graph.png'

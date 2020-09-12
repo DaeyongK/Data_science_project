@@ -12,24 +12,24 @@ import matplotlib.pyplot as pyplot
 
 #File read
 fileInput = pandas.read_csv("C:/Users/miked/Downloads/hw_25000.csv", sep=',')
-#Which data column is x 
-colNInput = 1
-#Which data column is y 
-xLblInput = "Height (Inches)"
-#Y axis label
-yLblInput = None
-#Title
-ttlInput = None
-#X axis range
-xRInput = [60, 75]
-#Y axis range
-yRInput = None
-#Hist style ("step", "bar")
-hStyleInput = "step"
-#Bin width
-binPut = None
-#Plot density?
-densYesInput = True
+# #Which data column is x
+# colNInput = 1
+# #Which data column is y
+# xLblInput = "Height (Inches)"
+# #Y axis label
+# yLblInput = None
+# #Title
+# ttlInput = None
+# #X axis range
+# xRInput = [60, 75]
+# #Y axis range
+# yRInput = None
+# #Hist style ("step", "bar")
+# hStyleInput = "step"
+# #Bin width
+# binPut = None
+# #Plot density?
+# densYesInput = True
 
 def hist(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
     #Selects user input columns
@@ -58,7 +58,7 @@ def hist(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
     #Density function
     if densYes == True:
         col.plot(kind='density')
-        
+
     #If axes labels not given, uses dataframe headers/#
     if xLbl == None:
         xLblF = file.columns[colN]
@@ -77,16 +77,16 @@ def hist(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
         ax.set_title("Histogram of " + xLblF)
     else:
         ax.set_title(ttl)
-    
+
     #Set range if given
     if xR != None:
         ax.set_xlim(xR[0], xR[1])
     if yR != None:
         ax.set_ylim(yR[0], yR[1])
-    
+
     #Set plot margins to 0
     pyplot.margins(0)
-    
+
     #Return figure
     return fig
 
