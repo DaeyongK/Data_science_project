@@ -11,7 +11,7 @@ import matplotlib as matplotlib
 import matplotlib.pyplot as pyplot
 
 #File read
-fileInput = pandas.read_csv("C:/Users/miked/Downloads/hw_25000.csv", sep=',')
+# fileInput = pandas.read_csv("C:/Users/miked/Downloads/hw_25000.csv", sep=',')
 # #Which data column is x
 # colNInput = 1
 # #Which data column is y
@@ -31,7 +31,7 @@ fileInput = pandas.read_csv("C:/Users/miked/Downloads/hw_25000.csv", sep=',')
 # #Plot density?
 # densYesInput = True
 
-def hist(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
+def histo(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
     #Selects user input columns
     col = file.iloc[:, colN]
 
@@ -49,37 +49,38 @@ def hist(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
     ax = fig.add_subplot()
 
     #Contingency if no style is provided (basically saying default is bar)
-    if hStyle == None:
+    if hStyle == None or hStyle == "":
         hStyle = "bar"
 
     #Creates scatter plot
     ax.hist(col, color = "tab:orange", density = True, histtype = hStyle, bins = binS)
 
     #Density function
-    if densYes == True:
+
+    if densYes == "True":
         col.plot(kind='density')
 
     #If axes labels not given, uses dataframe headers/#
-    if xLbl == None:
+    if xLbl == None or xLbl == "":
         xLblF = file.columns[colN]
         ax.set_xlabel(xLblF)
     else:
         xLblF = xLbl
         ax.set_xlabel(xLblF)
-    if yLbl == None:
+    if yLbl == None or yLbl == "":
         ax.set_ylabel("N (#)")
     else:
         yLblF = yLbl
         ax.set_ylabel(yLblF)
 
     #Automatically determine title if not given
-    if ttl == None:
+    if ttl == None or ttl == "":
         ax.set_title("Histogram of " + xLblF)
     else:
         ax.set_title(ttl)
 
     #Set range if given
-    if xR != None:
+    if xR != None or xR != "":
         ax.set_xlim(xR[0], xR[1])
     if yR != None:
         ax.set_ylim(yR[0], yR[1])
@@ -90,8 +91,8 @@ def hist(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
     #Return figure
     return fig
 
-#Execute
-fig1 = hist(fileInput, colNInput, xLblInput, yLblInput, ttlInput, xRInput, yRInput, hStyleInput, binPut, densYesInput)
-
-#Display Figure
-pyplot.show()
+# #Execute
+# fig1 = hist(fileInput, colNInput, xLblInput, yLblInput, ttlInput, xRInput, yRInput, hStyleInput, binPut, densYesInput)
+#
+# #Display Figure
+# pyplot.show()
