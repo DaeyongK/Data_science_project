@@ -24,4 +24,5 @@ def mode(df):
     intAr = df.split(',')
     nums = list(map(int, intAr))
     mode = statistics.mode(nums)
+    print(mode)
     return(mode)

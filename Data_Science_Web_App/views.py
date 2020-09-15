@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from Data_Science_Web_App.algorithms.average import average, median
+from Data_Science_Web_App.algorithms.average import average, median, mode
 from Data_Science_Web_App.algorithms.xyplot import xyplot
 from Data_Science_Web_App.algorithms.histo import histo
 from . import forms
@@ -33,7 +33,8 @@ def get_average(request):
             'num': 'Please upload a CSV file',
             'left': 'Please upload a CSV file',
             'mid': 'Please upload a CSV file',
-            'right': 'Please upload a CSV file'
+            'right': 'Please upload a CSV file',
+            'mode': 'Please upload a CSV file'
         }
         return render(request, template_name, context)
 
@@ -50,6 +51,7 @@ def get_average(request):
 
     avgNum = average(data_set)
     left,mid,right = median(data_set)
+    modeNum = mode(data_set)
 
 
 
@@ -57,7 +59,8 @@ def get_average(request):
         'num': avgNum,
         'left': left,
         'mid': mid,
-        'right': right
+        'right': right,
+        'mode': modeNum
     }
     return render(request, template_name, context)
 
