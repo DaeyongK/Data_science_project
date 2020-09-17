@@ -38,23 +38,60 @@ def get_average(request):
         }
         return render(request, template_name, context)
 
-    #Vulnerability
-    csv_file = request.FILES['file_name']
+    #Checking if user filled out both areas
+    try:
+        csv_file = request.FILES['file_name']
+        csv_text = request.POST.get('csv_text')
+        #But if csv_text is empty which means that the textarea was left alone,
+        if csv_text == "":
 
-    if not csv_file.name.endswith('.csv'):
+            csv_file = request.FILES['file_name']
+
+            #Checking if it's an actual csv file
+            if not csv_file.name.endswith('.csv'):
+                context={
+                    'num': 'The input type was invalid; did you make sure you used a CSV file with only numbers?'
+                }
+                return render(request, template_name, context)
+
+            data_set = csv_file.read().decode('UTF-8')
+
+        #This will run if the user provided data for both inputs
+        else:
+            context={
+                'num': 'Please enter your data into only one of the fields'
+            }
+
+            return render(request, template_name, context)
+
+
+    #This will run if the program fails to read the file because it isn't there. It goes on to read the data in the textarea
+    except:
+        csv_text = request.POST.get('csv_text')
+
+        #This will run only if the user pressed upload without providing any data
+        if csv_text == "":
+            context={
+                'num': 'Please provide an input'
+            }
+            return render(request, template_name, context)
+
+        data_set = csv_text
+
+    #Running the algorithms on the data_set
+    try:
+        avgNum = average(data_set)
+        left,mid,right = median(data_set)
+        modeNum = mode(data_set)
+    #This will run if one of the algorithms failed; at this point the only possible reason is because the data was not formatted properly
+    except:
         context={
-            'num': 'The input type was invalid; did you make sure you used a CSV file with only numbers?'
+            'num': 'Please format your data properly'
         }
         return render(request, template_name, context)
-    data_set = csv_file.read().decode('UTF-8')
 
 
-    avgNum = average(data_set)
-    left,mid,right = median(data_set)
-    modeNum = mode(data_set)
-
-
-
+    #This only runs if everything was successful. It renders the view after the user presses upload
     context = {
         'num': avgNum,
         'left': left,
@@ -63,6 +100,22 @@ def get_average(request):
         'mode': modeNum
     }
     return render(request, template_name, context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -149,6 +202,17 @@ def plot(request):
             }
 
     return render(request, template_name, context)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
