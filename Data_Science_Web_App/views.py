@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from Data_Science_Web_App.algorithms.average import average, median, mode
+from Data_Science_Web_App.algorithms.average import average, median, mode, strWSpace
 from Data_Science_Web_App.algorithms.xyplot import xyplot
 from Data_Science_Web_App.algorithms.histo import histo
 from . import forms
@@ -82,7 +82,11 @@ def get_average(request):
     try:
         avgNum = average(data_set)
         left,mid,right = median(data_set)
-        modeNum = mode(data_set)
+        if mode(data_set) == None:
+            modeNum = "There was no mode in the given data"
+        else:
+            modeNum = " ".join(list(map(strWSpace, mode(data_set))))[:-2]
+
     #This will run if one of the algorithms failed; at this point the only possible reason is because the data was not formatted properly
     except:
         context={

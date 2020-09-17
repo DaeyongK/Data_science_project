@@ -63,7 +63,7 @@ def histo(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
     #If axes labels not given, uses dataframe headers/#
     if xLbl == None or xLbl == "":
         xLblF = file.columns[colN]
-        ax.set_xlabel(xLblF)
+        ax.set_xlabel(xLblF[2:-1])
     else:
         xLblF = xLbl
         ax.set_xlabel(xLblF)
@@ -75,7 +75,7 @@ def histo(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
 
     #Automatically determine title if not given
     if ttl == None or ttl == "":
-        ax.set_title("Histogram of " + xLblF)
+        ax.set_title("Histogram of " + xLblF[2:-1])
     else:
         ax.set_title(ttl)
 

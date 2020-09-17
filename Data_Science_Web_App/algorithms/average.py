@@ -15,7 +15,7 @@ def median(df):
 
     if intMiddleIndex != middleIndex:
         return('is', intAr[intMiddleIndex], 'perfect')
-        
+
     else:
         rightNum = int(intAr[intMiddleIndex])
         leftNum = int(intAr[intMiddleIndex - 1])
@@ -30,3 +30,6 @@ def mode(df):
         return (None)
     else:
         return(mode)
+
+def strWSpace(int):
+    return str(int) + ", "
