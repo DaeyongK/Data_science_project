@@ -25,6 +25,8 @@ def median(df):
 def mode(df):
     intAr = df.split(',')
     nums = list(map(int, intAr))
-    mode = statistics.mode(nums)
-    print(mode)
-    return(mode)
+    mode = statistics.multimode(nums)
+    if len(mode) == len(nums):
+        return (None)
+    else:
+        return(mode)
