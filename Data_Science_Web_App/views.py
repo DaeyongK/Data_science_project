@@ -21,6 +21,10 @@ class IndexView(TemplateView):
 class AboutView(TemplateView):
     template_name = 'Data_Science_Web_App/about.html'
 
+class MainPageView(TemplateView):
+    template_name = 'Data_Science_Web_App/main_page.html'
+
+
 
 #Function-based views
 def get_average(request):

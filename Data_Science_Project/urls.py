@@ -22,5 +22,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.IndexView.as_view(), name='IndexView'),
+    path('main_page/', views.MainPageView.as_view(), name='MainPageView'),
     path('Data_Science_Web_App/', include('Data_Science_Web_App.urls'))
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -1,0 +1,82 @@
+body {
+  font-family: "Lucida Sans Unicode";
+}
+
+table {
+  table-layout: fixed;
+  width: 90%;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  vertical-align: top;
+}
+
+th,
+td {
+  padding: 15px;
+}
+
+.center {
+  margin: 50px;
+}
+
+.panel {
+  display: none;
+}
+
+.panel.show {
+  display: block !important;
+
+  padding: 0 18px;
+  background-color: white;
+  overflow: hidden;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.panel1 {
+  display: none;
+}
+
+.panel1.show {
+  display: block !important;
+  padding: 0 18px;
+  background-color: white;
+  overflow: hidden;
+}
+
+.accordion1 {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.active,
+.accordion:hover {
+  overflow: hidden;
+}
+
+.finalOutput {
+  overflow: hidden;
+  width: 45%
+}
