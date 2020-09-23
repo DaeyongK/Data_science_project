@@ -50,6 +50,11 @@ def stdev(df):
     #Interquartile range
     IQR = Q3 - Q1
 
+    #Basic range function
+    firstNum = nums[0]
+    lastNum = next(reversed(nums))
+    range = lastNum - firstNum
+
     #Returns everything
     return(std, std1lower, std1upper, std2lower, std2upper, std3lower,
-    std3upper, variance, trueMid, Q1, Q3, IQR)
+    std3upper, variance, trueMid, Q1, Q3, IQR, range)
