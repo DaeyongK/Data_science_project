@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from Data_Science_Web_App.algorithms.average import average, median, mode, strWSpace
+from Data_Science_Web_App.algorithms.average import variable_stats, strWSpace
 from Data_Science_Web_App.algorithms.xyplot import xyplot
 from Data_Science_Web_App.algorithms.histo import histo
 from . import forms
@@ -84,12 +84,13 @@ def get_average(request):
 
     #Running the algorithms on the data_set
     try:
-        avgNum = average(data_set)
-        left,mid,right = median(data_set)
-        if mode(data_set) == None:
+        #avgNum, mode_data, left, mid, right
+        avgNum, mode_return, left, mid, right =  variable_stats(data_set)
+        if mode_return == None:
             modeNum = "There was no mode in the given data"
         else:
-            modeNum = " ".join(list(map(strWSpace, mode(data_set))))[:-2]
+            modeNum = " ".join(list(map(strWSpace, mode_return)))[:-2]
+
 
     #This will run if one of the algorithms failed; at this point the only possible reason is because the data was not formatted properly
     except:
@@ -222,6 +223,33 @@ def plot(request):
 
 
 
+
+
+
+
+
+#Add in context later
+def gaussian(request):
+
+    template_name = 'Data_Science_Web_App/gaussian.html'
+    return render(request, template_name)
+
+
+def density(request):
+
+    template_name = 'Data_Science_Web_App/density.html'
+    return render(request, template_name)
+
+
+def interpolation(request):
+
+    template_name = 'Data_Science_Web_App/interpolation.html'
+    return render(request, template_name)
+
+def transformation(request):
+
+    template_name = 'Data_Science_Web_App/transformation.html'
+    return render(request, template_name)
 
 
 

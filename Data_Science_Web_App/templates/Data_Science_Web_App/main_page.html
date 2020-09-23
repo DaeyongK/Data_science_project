@@ -1,85 +1,75 @@
 {% extends 'Data_Science_Web_App/base.html' %}
+{% load static %}
 {% block body_block %}
-<center>
-      <h1>Data Science Tool HTML Shell</h1>
-  </center>
-  <div class="center" style="overflow-y:auto;">
-      <center>
-          <table>
-              <td style="width: 15%;"><b>Step 1: Upload Data</b></td>
-              <td>
-                  <form action="/action_page.php">
-                      <input type="file" id="myFile" name="filename">
-                      <input type="submit">
-                  </form>
-                  <button onclick="toStep2()" id="btGrp1">Next Step</button>
-              </td>
-          </table>
-          <br>
-          <table id="step2">
-              <td style="width: 15%;"><b>Step 2: Select Preprocessing Algorithm</b></td>
-              <td>
-                  <button class="accordion">None</button>
-                  <div class="panel">
-                      <p>Description:</p>
-                      <p><b>Necessary Conditions:</b></p>
-                      <button onclick="toStep3();preAlg1();" id="btGrp2-1">Next Step</button>
-                      <p></p>
-                  </div>
 
-                  <button class="accordion">Alg #1</button>
-                  <div class="panel">
-                      <p>Description:</p>
-                      <p><b>Necessary Conditions:</b></p>
-                      <button onclick="toStep3();preAlg2();" id="btGrp2-2">Next Step</button>
-                      <p></p>
-                  </div>
+    <center>
+        <h1>Data Science Tool </h1>
+    </center>
+    <div class="center" style="overflow-y:auto;">
+        <center>
+            <table id="main">
+                <td>
+                    <button class="accordion">#1 - Gaussian Smoothing</button>
+                    <div class="panel">
+                        <p>Description:</p>
+                        <p><b>Necessary Conditions:</b></p>
+                        <form action="{% url 'Data_Science_Web_App:gaussian' %}" method="post">
+                          {% csrf_token %}
+                          <input type="submit" value="Select">
+                        </form>
+                        <!-- <button onclick="preAlg1()" id="bt1">Select</button> -->
+                        <p></p>
+                    </div>
 
-                  <button class="accordion">Alg #2</button>
-                  <div class="panel">
-                      <p>Description:</p>
-                      <p><b>Necessary Conditions:</b></p>
-                      <button onclick="toStep3();preAlg3();" id="btGrp2-3">Next Step</button>
-                      <p></p>
-                  </div>
-              </td>
-          </table>
-          <br>
-          <table id="step3">
-              <td style="width: 15%;"><b>Step 3: Select Main Algorithm</b></td>
-              <td>
-                  <button class="accordion1">Alg #1</button>
-                  <div class="panel1">
-                      <p>Description:</p>
-                      <p><b>Necessary Conditions:</b></p>
-                      <button onclick="toStep4();alg1();" id="btGrp3-1">Next Step</button>
-                      <p></p>
-                  </div>
+                    <button class="accordion">#2 - Density Function</button>
+                    <div class="panel">
+                        <p>Description:</p>
+                        <p><b>Necessary Conditions:</b></p>
+                        <form action="{% url 'Data_Science_Web_App:density' %}" method="post">
+                          {% csrf_token %}
+                          <input type="submit" value="Select">
+                        </form>
+                        <p></p>
+                    </div>
 
-                  <button class="accordion1">Alg #2</button>
-                  <div class="panel1">
-                      <p>Description:</p>
-                      <p><b>Necessary Conditions:</b></p>
-                      <button onclick="toStep4();alg2();" id="btGrp3-2">Next Step</button>
-                      <p></p>
-                  </div>
+                    <button class="accordion">#3 - Interpolation of NAN</button>
+                    <div class="panel">
+                        <p>Description:</p>
+                        <p><b>Necessary Conditions:</b></p>
+                        <form action="{% url 'Data_Science_Web_App:interpolation' %}" method="post">
+                          {% csrf_token %}
+                          <input type="submit" value="Select">
+                        </form>
+                        <p></p>
+                    </div>
 
-                  <button class="accordion1">Alg #3</button>
-                  <div class="panel1">
-                      <p>Description:</p>
-                      <p><b>Necessary Conditions:</b></p>
-                      <button onclick="toStep4();alg3();" id="btGrp3-3">Next Step</button>
-                      <p></p>
-                  </div>
-              </td>
-          </table>
-          <br>
-          <table id="step4">
-              <td style="width: 15%;"><b>Output:</b></td>
-              <td>
-                  <div id="finalOutput"></div>
-              </td>
-          </table>
-      </center>
+                    <button class="accordion">#4 - Variable Statistics</button>
+                    <div class="panel">
+                        <p><b>Description:</b> Outputs simple variable statistics for one variable. (Mean, median, mode, range, standard deviation)</p>
+                        <p><b>Necessary Conditions:</b> 1 variable data</p>
+                        <p><b>Read More:</b>https://en.wikipedia.org/wiki/Mean, https://en.wikipedia.org/wiki/Median, etc (we will actually add all of them but I’m too lazy to for this mockup.</p>
+                        <form action="{% url 'Data_Science_Web_App:get_average' %}" method="post">
+                          {% csrf_token %}
+                          <input type="submit" value="Select">
+                        </form>
+                        <p></p>
+                    </div>
+
+                    <button class="accordion">#5 - Data Transformation</button>
+                    <div class="panel">
+                        <p>Description:</p>
+                        <p><b>Necessary Conditions:</b></p>
+                        <form action="{% url 'Data_Science_Web_App:transformation' %}" method="post">
+                          {% csrf_token %}
+                          <input type="submit" value="Select">
+                        </form>
+                        <p></p>
+                    </div>
+                </td>
+            </table>
+        </center>
     </div>
+
+    <!-- Custom JS Files -->
+    <script src="{% static 'js/main_page.js' %}" type="text/javascript">
 {% endblock %}

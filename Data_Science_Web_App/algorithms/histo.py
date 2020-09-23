@@ -10,26 +10,6 @@ import pandas as pandas
 import matplotlib as matplotlib
 import matplotlib.pyplot as pyplot
 
-#File read
-# fileInput = pandas.read_csv("C:/Users/miked/Downloads/hw_25000.csv", sep=',')
-# #Which data column is x
-# colNInput = 1
-# #Which data column is y
-# xLblInput = "Height (Inches)"
-# #Y axis label
-# yLblInput = None
-# #Title
-# ttlInput = None
-# #X axis range
-# xRInput = [60, 75]
-# #Y axis range
-# yRInput = None
-# #Hist style ("step", "bar")
-# hStyleInput = "step"
-# #Bin width
-# binPut = None
-# #Plot density?
-# densYesInput = True
 
 def histo(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
     #Selects user input columns
@@ -90,9 +70,3 @@ def histo(file, colN, xLbl, yLbl, ttl, xR, yR, hStyle, binS, densYes):
 
     #Return figure
     return fig
-
-# #Execute
-# fig1 = hist(fileInput, colNInput, xLblInput, yLblInput, ttlInput, xRInput, yRInput, hStyleInput, binPut, densYesInput)
-#
-# #Display Figure
-# pyplot.show()

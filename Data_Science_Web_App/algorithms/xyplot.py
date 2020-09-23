@@ -7,7 +7,7 @@ Created on Thu Sep 10 12:24:32 2020
 
 #Import libraries
 import pandas as pandas
-import matplotlib as matplotlib
+import matplotlib as matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as pyplot
 
 
