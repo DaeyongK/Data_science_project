@@ -25,8 +25,10 @@ def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, iKind):
     #Creates scatter plot
     ax.scatter(xCol, yCol, marker = ".", color = "tab:orange")
     
+    #Scipy interpolate function
     interF = interpolate.interp1d(xCol, yCol)
     
+    #Overplot interpolation
     ax.plot(xCol, interF(yCol))
     
     #If axes labels not given, uses dataframe headers
