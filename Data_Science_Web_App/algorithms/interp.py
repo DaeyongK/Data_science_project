@@ -1,12 +1,10 @@
 #Import libraries
 import pandas as pandas
-import matplotlib as matplotlib; matplotlib.use('Agg')
+import matplotlib as matplotlib
 import matplotlib.pyplot as pyplot
 from scipy import interpolate
 
-
-def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, alphaVal, interpkind):
-
+def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, iKind):
     #Selects user input columns
     xCol = file.iloc[:, xColN]
     yCol = file.iloc[:, yColN]
@@ -24,44 +22,37 @@ def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, alphaVal, interpkind):
     fig = pyplot.figure()
     ax = fig.add_subplot()
 
-    if alphaVal == "" or alphaVal == None:
-        alphaVal = 20
-
-    alphaVal /= 100
-
-    #Creates interpolation function
-    f = interpolate.interp1d(xCol, yCol, kind=interpkind)
-
     #Creates scatter plot
-    ax.scatter(xCol, yCol, marker = ".", color = "tab:orange", alpha = alphaVal)
-
-    #Creates interpolation plot
-    pyplot.plot(xCol, f(xCol))
-
+    ax.scatter(xCol, yCol, marker = ".", color = "tab:orange")
+    
+    interF = interpolate.interp1d(xCol, yCol)
+    
+    ax.plot(xCol, interF(yCol))
+    
     #If axes labels not given, uses dataframe headers
-    if xLbl == "":
+    if xLbl == None:
         xLblF = file.columns[xColN]
-        ax.set_xlabel(xLblF[2:-1])
+        ax.set_xlabel(xLblF)
     else:
         xLblF = xLbl
         ax.set_xlabel(xLblF)
-    if yLbl == "":
+    if yLbl == None:
         yLblF = file.columns[yColN]
-        ax.set_ylabel(yLblF[2:-1])
+        ax.set_ylabel(yLblF)
     else:
         yLblF = yLbl
         ax.set_ylabel(yLblF)
 
     #Automatically determine title if not given
-    if ttl == "":
-        ax.set_title(yLblF[2:-1] + " vs. " + xLblF[2:-1])
+    if ttl == None:
+        ax.set_title(yLblF + " vs. " + xLblF)
     else:
         ax.set_title(ttl)
-
-    if xR != "":
+        
+    if xR != None:
         ax.set_xlim(xR[0], xR[1])
-    if yR != "":
+    if yR != None:
         ax.set_ylim(yR[0], yR[1])
-
+        
     #Return figure
     return fig
