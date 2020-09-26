@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from Data_Science_Web_App.algorithms.average import variable_stats, strWSpace
 from Data_Science_Web_App.algorithms.xyplot import xyplot
 from Data_Science_Web_App.algorithms.histo import histo
+from Data_Science_Web_App.algorithms.interp import interp
 from . import forms
 import os
 import pandas
@@ -241,10 +242,6 @@ def density(request):
     return render(request, template_name)
 
 
-def interpolation(request):
-
-    template_name = 'Data_Science_Web_App/interpolation.html'
-    return render(request, template_name)
 
 def transformation(request):
 
@@ -322,6 +319,93 @@ def histoplot(request):
                 figure = histo(data_set, colN, xLabel, yLabel, title, xR, yR, hStyle, binS, densYes)
 
                 graph_image = 'histograph.png'
+
+                figure.savefig(os.path.join(graph_path, graph_image))
+
+            except:
+
+                #Returning error message on failure
+                context={
+                    'success': False,
+                    'form': form,
+                    'error_message': 'Something went wrong with creating the graph. Did you format your data properly?'
+                }
+
+                return render(request, template_name, context)
+
+            #The final context dictionary with success being true. In this case, the error_message shouldn't pop up
+            context = {
+                'success': True,
+                'form': form,
+                'error_message': 'The graph should have been here, but something went wrong'
+            }
+
+    return render(request, template_name, context)
+
+
+
+
+
+
+
+
+
+
+def interpolation(request):
+    #All basic variables
+    template_name = 'Data_Science_Web_App/interpolation.html'
+    form = forms.InterpolationForm()
+    context={
+        'success': False,
+        'form': form,
+        'error_message': 'Please fill out the required fields!'
+    }
+
+
+    if request.method == 'POST':
+
+        form = forms.InterpolationForm(request.POST, request.FILES)
+
+
+        #Checking if all fields are valid
+        if form.is_valid():
+
+            data_file = form.cleaned_data['data_file']
+            xIndex = form.cleaned_data['xIndex']
+            yIndex = form.cleaned_data['yIndex']
+            xLabel = form.cleaned_data['xLabel']
+            yLabel = form.cleaned_data['yLabel']
+            title = form.cleaned_data['title']
+            lowerX = form.cleaned_data['lowerX']
+            upperX = form.cleaned_data['upperX']
+            lowerY = form.cleaned_data['lowerY']
+            upperY = form.cleaned_data['upperY']
+            iKind = form.cleaned_data['iKind']
+
+            if not data_file.name.endswith('.csv'):
+
+                context={
+                    'success': False,
+                    'form': form,
+                    'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                }
+
+                return render(request, template_name, context)
+
+
+            #Reading data_file with pandas, so that data_set is now a pandas dataframe
+            data_set = pandas.read_csv(data_file)
+            xR = [lowerX, upperX]
+            yR = [lowerY, upperY]
+
+
+
+            #Trying to create a plot with given fields, and if successful save it
+            try:
+
+                figure = interp(data_set, xIndex, yIndex, xLabel, yLabel, title, xR, yR, iKind)
+
+                graph_image = 'interp.png'
 
                 figure.savefig(os.path.join(graph_path, graph_image))
 

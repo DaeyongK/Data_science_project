@@ -4,8 +4,9 @@ import matplotlib as matplotlib
 import matplotlib.pyplot as pyplot
 from scipy import interpolate
 
-def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, iKind):
+def interp(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, iKind):
     #Selects user input columns
+
     xCol = file.iloc[:, xColN]
     yCol = file.iloc[:, yColN]
 
@@ -17,44 +18,45 @@ def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, iKind):
     matplotlib.rcParams['axes.labelcolor'] = "black"
     matplotlib.rcParams['xtick.color'] = "black"
     matplotlib.rcParams['ytick.color'] = "black"
-
+    if iKind == None or iKind == "":
+        iKind = "linear"
     #Creates figure
     fig = pyplot.figure()
     ax = fig.add_subplot()
 
     #Creates scatter plot
     ax.scatter(xCol, yCol, marker = ".", color = "tab:orange")
-    
+
     #Scipy interpolate function
-    interF = interpolate.interp1d(xCol, yCol)
-    
+
+    interF = interpolate.interp1d(xCol, yCol, kind=iKind, fill_value='extrapolate')
+
     #Overplot interpolation
     ax.plot(xCol, interF(yCol))
-    
-    #If axes labels not given, uses dataframe headers
-    if xLbl == None:
+
+    if xLbl == "":
         xLblF = file.columns[xColN]
-        ax.set_xlabel(xLblF)
+        ax.set_xlabel(xLblF[2:-1])
     else:
         xLblF = xLbl
         ax.set_xlabel(xLblF)
-    if yLbl == None:
+    if yLbl == "":
         yLblF = file.columns[yColN]
-        ax.set_ylabel(yLblF)
+        ax.set_ylabel(yLblF[2:-1])
     else:
         yLblF = yLbl
         ax.set_ylabel(yLblF)
 
     #Automatically determine title if not given
-    if ttl == None:
-        ax.set_title(yLblF + " vs. " + xLblF)
+    if ttl == "":
+        ax.set_title(yLblF[2:-1] + " vs. " + xLblF[2:-1])
     else:
         ax.set_title(ttl)
-        
-    if xR != None:
+
+    if xR != "":
         ax.set_xlim(xR[0], xR[1])
-    if yR != None:
+    if yR != "":
         ax.set_ylim(yR[0], yR[1])
-        
+
     #Return figure
     return fig
