@@ -48,7 +48,7 @@
                         <p><b>Description:</b> Outputs simple variable statistics for one variable. (Mean, median, mode, range, standard deviation)</p>
                         <p><b>Necessary Conditions:</b> 1 variable data</p>
                         <p><b>Read More:</b>https://en.wikipedia.org/wiki/Mean, https://en.wikipedia.org/wiki/Median, etc (we will actually add all of them but I’m too lazy to for this mockup.</p>
-                        <form action="{% url 'Data_Science_Web_App:get_average' %}" method="post">
+                        <form action="{% url 'Data_Science_Web_App:variable_stats' %}" method="GET">
                           {% csrf_token %}
                           <input type="submit" value="Select">
                         </form>

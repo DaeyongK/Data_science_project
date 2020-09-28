@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from Data_Science_Web_App.algorithms.average import variable_stats, strWSpace
+from Data_Science_Web_App.algorithms.variable_stats import variable_stats, strWSpace
 from Data_Science_Web_App.algorithms.xyplot import xyplot
 from Data_Science_Web_App.algorithms.histo import histo
 from Data_Science_Web_App.algorithms.interp import interp
@@ -28,9 +28,10 @@ class MainPageView(TemplateView):
 
 
 #Function-based views
-def get_average(request):
+def variable_statistics(request):
 
-    template_name = 'Data_Science_Web_App/average.html'
+    template_name = 'Data_Science_Web_App/variable_stats.html'
+
 
     #Default rendering
     if request.method == "GET":
@@ -39,7 +40,19 @@ def get_average(request):
             'left': 'Please upload a CSV file',
             'mid': 'Please upload a CSV file',
             'right': 'Please upload a CSV file',
-            'mode': 'Please upload a CSV file'
+            'mode': 'Please upload a CSV file',
+            'std': 'Please upload a CSV file',
+            'std1lower': 'Please upload a CSV file',
+            'std1upper': 'Please upload a CSV file',
+            'std2lower': 'Please upload a CSV file',
+            'std2upper': 'Please upload a CSV file',
+            'std3lower': 'Please upload a CSV file',
+            'std3upper': 'Please upload a CSV file',
+            'variance': 'Please upload a CSV file',
+            'Q1': 'Please upload a CSV file',
+            'Q3': 'Please upload a CSV file',
+            'IQR': 'Please upload a CSV file',
+            'range': 'Please upload a CSV file'
         }
         return render(request, template_name, context)
 
@@ -85,8 +98,7 @@ def get_average(request):
 
     #Running the algorithms on the data_set
     try:
-        #avgNum, mode_data, left, mid, right
-        avgNum, mode_return, left, mid, right =  variable_stats(data_set)
+        avgNum, mode_return, left, mid, right, std, std1lower, std1upper, std2lower, std2upper, std3lower, std3upper, variance, Q1, Q3, IQR, range =  variable_stats(data_set)
         if mode_return == None:
             modeNum = "There was no mode in the given data"
         else:
@@ -107,7 +119,19 @@ def get_average(request):
         'left': left,
         'mid': mid,
         'right': right,
-        'mode': modeNum
+        'mode': modeNum,
+        'std': std,
+        'std1lower': std1lower,
+        'std1upper': std1upper,
+        'std2lower': std2lower,
+        'std2upper': std2upper,
+        'std3lower': std3lower,
+        'std3upper': std3upper,
+        'variance': variance,
+        'Q1': Q1,
+        'Q3': Q3,
+        'IQR': IQR,
+        'range': range
     }
     return render(request, template_name, context)
 
