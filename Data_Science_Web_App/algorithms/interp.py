@@ -34,13 +34,13 @@ def interp(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, iKind):
     #Overplot interpolation
     ax.plot(xCol, interF(yCol))
 
-    if xLbl == "":
+    if xLbl == "" or xLbl == None:
         xLblF = file.columns[xColN]
         ax.set_xlabel(xLblF[2:-1])
     else:
         xLblF = xLbl
         ax.set_xlabel(xLblF)
-    if yLbl == "":
+    if yLbl == "" or yLbl == None:
         yLblF = file.columns[yColN]
         ax.set_ylabel(yLblF[2:-1])
     else:
@@ -48,14 +48,14 @@ def interp(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, iKind):
         ax.set_ylabel(yLblF)
 
     #Automatically determine title if not given
-    if ttl == "":
+    if ttl == "" or ttl == None:
         ax.set_title(yLblF[2:-1] + " vs. " + xLblF[2:-1])
     else:
         ax.set_title(ttl)
 
-    if xR != "":
+    if xR != "" or xR != None:
         ax.set_xlim(xR[0], xR[1])
-    if yR != "":
+    if yR != "" or yR != None:
         ax.set_ylim(yR[0], yR[1])
 
     #Return figure
