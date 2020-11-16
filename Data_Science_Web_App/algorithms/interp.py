@@ -32,7 +32,7 @@ def interp(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, iKind):
     interF = interpolate.interp1d(xCol, yCol, kind=iKind, fill_value='extrapolate')
 
     #Overplot interpolation
-    ax.plot(xCol, interF(yCol))
+    ax.plot(xCol, interF(xCol))
 
     if xLbl == "" or xLbl == None:
         xLblF = file.columns[xColN]
