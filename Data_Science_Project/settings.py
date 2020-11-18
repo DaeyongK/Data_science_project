@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'Data_Science_Web_App/templates/Data_Science_Web_App')
@@ -24,8 +25,10 @@ SECRET_KEY = '%bf1jbk+ug@8n7+zt!$%#u8_2$_h(u$2id-#ixqh#09l$s!tem'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
+# DEBUG = False
+#
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition

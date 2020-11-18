@@ -452,3 +452,21 @@ def interpolation(request):
             }
 
     return render(request, template_name, context)
+
+
+def error_404(request, exception):
+    template_name = 'Data_Science_Web_App/404.html'
+    return render(request, template_name)
+
+
+def error_500(request):
+    template_name = 'Data_Science_Web_App/500.html'
+    return render(request, template_name)
+
+def error_403(request, exception):
+    template_name = 'Data_Science_Web_App/403.html'
+    return render(request, template_name)
+
+def error_400(request, exception):
+    template_name = 'Data_Science_Web_App/400.html'
+    return render(request, template_name)

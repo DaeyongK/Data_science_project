@@ -18,9 +18,15 @@ from django.urls import path, include
 from Data_Science_Web_App import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import handler404, handler500, handler403, handler400
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.IndexView.as_view(), name='IndexView'),
     path('Data_Science_Web_App/', include('Data_Science_Web_App.urls'))
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+handler404 = 'Data_Science_Web_App.views.error_404'
+handler500 = 'Data_Science_Web_App.views.error_500'
+handler403 = 'Data_Science_Web_App.views.error_403'
+handler400 = 'Data_Science_Web_App.views.error_400'
