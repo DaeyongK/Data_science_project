@@ -24,11 +24,11 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'Data_Science_Web_App/templates/Data_Scien
 SECRET_KEY = '%bf1jbk+ug@8n7+zt!$%#u8_2$_h(u$2id-#ixqh#09l$s!tem'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = []
-# DEBUG = False
-#
-# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# DEBUG = True
+# ALLOWED_HOSTS = []
+DEBUG = False
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
