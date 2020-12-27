@@ -8,6 +8,8 @@ from . import forms
 import os
 import pandas
 import mpld3
+# from Data_Science_Project.settings import STATIC_ROOT, TEMPLATE_DIR
+
 
 #Media file DIR
 graph_path = os.path.abspath('media/graphs')
@@ -133,6 +135,7 @@ def variable_statistics(request):
         'IQR': IQR,
         'range': range
     }
+
     return render(request, template_name, context)
 
 

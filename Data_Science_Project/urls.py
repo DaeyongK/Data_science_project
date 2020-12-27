@@ -24,7 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.IndexView.as_view(), name='IndexView'),
     path('Data_Science_Web_App/', include('Data_Science_Web_App.urls'))
-]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+# Only for DEBUG = True
+# + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 handler404 = 'Data_Science_Web_App.views.error_404'
 handler500 = 'Data_Science_Web_App.views.error_500'
