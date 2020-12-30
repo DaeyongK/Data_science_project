@@ -1,0 +1,24 @@
+{% extends 'Data_Science_Web_App/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Packaging Data</h1>
+    <form enctype='multipart/form-data' method="POST">
+      {% csrf_token %}
+      <label>Enter your data below</label>
+      <br>
+      <br>
+      <textarea name="csv_text" rows="8" cols="80"></textarea>
+      <br>
+      <br>
+      <button type="submit" name = "dl">Download CSV File</button>
+      <br>
+      <br>
+      <button type="submit" name = "package">Package</button>
+    </form>
+    <br>
+    <br>
+    {{message}}
+  </div>
+</div>
+{% endblock %}

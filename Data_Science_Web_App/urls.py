@@ -12,4 +12,5 @@ urlpatterns = [
     path('gaussian_smoothing/', views.gaussian, name='gaussian'),
     path('interpolation_NAN/', views.interpolation, name='interpolation'),
     path('transformation/', views.transformation, name='transformation'),
+    path('packaging/', views.package, name='package'),
 ]

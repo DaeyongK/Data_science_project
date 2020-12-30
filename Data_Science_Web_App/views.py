@@ -1,13 +1,22 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.core.files.storage import default_storage
 from Data_Science_Web_App.algorithms.variable_stats import variable_stats, strWSpace
 from Data_Science_Web_App.algorithms.xyplot import xyplot
 from Data_Science_Web_App.algorithms.histo import histo
 from Data_Science_Web_App.algorithms.interp import interp
+from Data_Science_Web_App.algorithms.key import generate_key
+from Data_Science_Web_App.algorithms.locator import locate
+from django.http import HttpResponse
 from . import forms
+from Data_Science_Web_App.models import TemporaryFile
 import os
 import pandas
 import mpld3
+import csv
+import random
+import string
+from Data_Science_Project.settings import MEDIA_ROOT
 # from Data_Science_Project.settings import STATIC_ROOT, TEMPLATE_DIR
 
 
@@ -62,8 +71,9 @@ def variable_statistics(request):
     try:
         csv_file = request.FILES['file_name']
         csv_text = request.POST.get('csv_text')
-        #But if csv_text is empty which means that the textarea was left alone,
-        if csv_text == "":
+        key_field = request.POST.get('key_field')
+        #But if csv_text and key_field is empty which means that the textarea was left alone,
+        if csv_text == "" and key_field == "":
 
             csv_file = request.FILES['file_name']
 
@@ -88,15 +98,31 @@ def variable_statistics(request):
     #This will run if the program fails to read the file because it isn't there. It goes on to read the data in the textarea
     except:
         csv_text = request.POST.get('csv_text')
-
+        key_field = request.POST.get('key_field')
         #This will run only if the user pressed upload without providing any data
-        if csv_text == "":
+        if csv_text == "" and key_field == "":
             context={
                 'num': 'Please provide an input'
             }
             return render(request, template_name, context)
 
-        data_set = csv_text
+        elif csv_text != "" and key_field == "":
+            data_set = csv_text
+        elif csv_text == "" and key_field != "":
+            try:
+                csv_file = locate(key_field)
+                data_set = csv_file.read().decode('UTF-8')
+            except:
+                context={
+                    'num': 'Looks like your key was invalid'
+                }
+                return render(request, template_name, context)
+        elif csv_text != "" and key_field != "":
+            context={
+                'num': 'Please enter your data into only one of the fields'
+            }
+
+            return render(request, template_name, context)
 
     #Running the algorithms on the data_set
     try:
@@ -212,6 +238,7 @@ def plot(request):
             yR = [lowerY, upperY]
 
             #Trying to create a plot with given fields, and if successful save it
+
             try:
 
                 figure = xyplot(data_set, xIndex, yIndex, xLabel, yLabel, title, xR, yR, alphaVal)
@@ -455,6 +482,67 @@ def interpolation(request):
             }
 
     return render(request, template_name, context)
+
+
+
+
+
+
+
+
+
+def package(request):
+
+    template_name = 'Data_Science_Web_App/package.html'
+
+
+    #Default rendering
+    if request.method == "GET":
+        context={
+        'message' : ''
+        }
+        return render(request, template_name, context)
+
+    if 'dl' in request.POST:
+        try:
+            csv_text = request.POST.get('csv_text')
+            my_list = [num.strip() for num in csv_text.split(',')]
+            response = HttpResponse(content_type = 'text/csv')
+            response['Content-Disposition'] = 'attachment; filename = "export_data.csv"'
+
+            writer = csv.writer(response, delimiter = ",")
+            writer.writerow(my_list)
+
+            return response
+
+        except:
+            context={
+                'message': 'Something went wrong'
+            }
+            return render(request, template_name, context)
+
+    elif 'package' in request.POST:
+        key = generate_key(10)
+        csv_text = request.POST.get('csv_text')
+        my_list = [num.strip() for num in csv_text.split(',')]
+        file_name = key + ".csv"
+        with open(file_name,'w') as f:
+            writer = csv.writer(f, delimiter = ",")
+            writer.writerow(my_list)
+
+        file_name = default_storage.save(file_name, open(file_name))
+        temp = TemporaryFile(key = key, data = file_name)
+        temp.save()
+        context={
+            'message': 'Saved! \n Here is your key: ' + key
+        }
+        return render(request, template_name, context)
+
+
+
+
+
+
 
 
 def error_404(request, exception):
