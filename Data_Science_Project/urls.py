@@ -22,7 +22,7 @@ from django.conf.urls import handler404, handler500, handler403, handler400
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.IndexView.as_view(), name='IndexView'),
+    path('', views.index_view, name='index_view'),
     path('Data_Science_Web_App/', include('Data_Science_Web_App.urls'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 # Only for DEBUG = True

@@ -8,6 +8,8 @@ from Data_Science_Web_App.algorithms.interp import interp
 from Data_Science_Web_App.algorithms.key import generate_key
 from Data_Science_Web_App.algorithms.locator import locate
 from django.http import HttpResponse
+import pytz
+import datetime
 from . import forms
 from Data_Science_Web_App.models import TemporaryFile
 import os
@@ -16,7 +18,7 @@ import mpld3
 import csv
 import random
 import string
-from Data_Science_Project.settings import MEDIA_ROOT
+from Data_Science_Project.settings import MEDIA_ROOT, BASE_DIR
 # from Data_Science_Project.settings import STATIC_ROOT, TEMPLATE_DIR
 
 
@@ -27,9 +29,6 @@ graph_path = os.path.abspath('media/graphs')
 
 
 #CBVs
-class IndexView(TemplateView):
-    template_name = 'Data_Science_Web_App/index.html'
-
 class AboutView(TemplateView):
     template_name = 'Data_Science_Web_App/about.html'
 
@@ -39,6 +38,22 @@ class MainPageView(TemplateView):
 
 
 #Function-based views
+
+def index_view(request):
+    template_name = 'Data_Science_Web_App/index.html'
+    if request.method == "GET":
+        utc = pytz.UTC
+        objects = TemporaryFile.objects.all()
+        for object in objects.iterator():
+            if object.time_created < utc.localize(datetime.datetime.now())-datetime.timedelta(minutes=1):
+                self_file = TemporaryFile.objects.get(pk = object.pk)
+                data = str(object.data)
+                os.remove(os.path.join(MEDIA_ROOT, data))
+                os.remove(os.path.join(BASE_DIR, data))
+                self_file.delete()
+
+    return render(request, template_name)
+
 def variable_statistics(request):
 
     template_name = 'Data_Science_Web_App/variable_stats.html'
