@@ -13,4 +13,5 @@ urlpatterns = [
     path('interpolation_NAN/', views.interpolation, name='interpolation'),
     path('transformation/', views.transformation, name='transformation'),
     path('packaging/', views.package, name='package'),
+    path('visual/', views.visual, name = 'visual'),
 ]

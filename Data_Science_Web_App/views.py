@@ -11,9 +11,10 @@ from django.http import HttpResponse
 import pytz
 import datetime
 from . import forms
+from IPython.display import HTML
 from Data_Science_Web_App.models import TemporaryFile
 import os
-import pandas
+import pandas as pd
 import mpld3
 import csv
 import random
@@ -247,8 +248,8 @@ def plot(request):
                 return render(request, template_name, context)
 
 
-            #Reading data_file with pandas, so that data_set is now a pandas dataframe
-            data_set = pandas.read_csv(data_file)
+            #Reading data_file with pd, so that data_set is now a pd dataframe
+            data_set = pd.read_csv(data_file)
             xR = [lowerX, upperX]
             yR = [lowerY, upperY]
 
@@ -283,6 +284,50 @@ def plot(request):
     return render(request, template_name, context)
 
 
+
+
+
+
+
+def visual(request):
+
+    template_name = 'Data_Science_Web_App/visual.html'
+
+
+    #Default rendering
+    if request.method == "GET":
+        context={
+            'loaded_data': 'Please input a key',
+        }
+        return render(request, template_name, context)
+
+
+    try:
+        key_field = request.POST.get('key_field')
+        if key_field == "":
+            context={
+                'loaded_data': 'Please input a key!',
+            }
+            return render(request, template_name, context)
+        else:
+            try:
+                csv_file = locate(key_field)
+                data_set = pd.read_csv(csv_file).to_html()
+                # print(csv_file)
+                context = {
+                    'loaded_data': data_set,
+                }
+                return render(request, template_name, context)
+            except:
+                context = {
+                    'loaded_data': 'Key value did not correspond to a CSV file'
+                }
+                return render(request, template_name, context)
+    except:
+        context = {
+            'loaded_data': 'Something went wrong, this is not supposed to happen'
+        }
+        return render(request, template_name, context)
 
 
 
@@ -377,8 +422,8 @@ def histoplot(request):
                 return render(request, template_name, context)
 
 
-            #Reading data_file with pandas, so that data_set is now a pandas dataframe
-            data_set = pandas.read_csv(data_file)
+            #Reading data_file with pd, so that data_set is now a pd dataframe
+            data_set = pd.read_csv(data_file)
             xR = [lowerX, upperX]
             yR = [lowerY, upperY]
 
@@ -462,8 +507,8 @@ def interpolation(request):
                 return render(request, template_name, context)
 
 
-            #Reading data_file with pandas, so that data_set is now a pandas dataframe
-            data_set = pandas.read_csv(data_file)
+            #Reading data_file with pd, so that data_set is now a pd dataframe
+            data_set = pd.read_csv(data_file)
             xR = [lowerX, upperX]
             yR = [lowerY, upperY]
 
@@ -521,13 +566,13 @@ def package(request):
     if 'dl' in request.POST:
         try:
             csv_text = request.POST.get('csv_text')
-            my_list = [num.strip() for num in csv_text.split(',')]
+            segmented_list = [[item.strip() for item in row.split(',')] for row in csv_text.split('\n')]
             response = HttpResponse(content_type = 'text/csv')
             response['Content-Disposition'] = 'attachment; filename = "export_data.csv"'
 
-            writer = csv.writer(response, delimiter = ",")
-            writer.writerow(my_list)
-
+            writer = csv.writer(response)
+            writer.writerow(segmented_list[0])
+            writer.writerows(segmented_list[1:])
             return response
 
         except:
@@ -539,11 +584,14 @@ def package(request):
     elif 'package' in request.POST:
         key = generate_key(10)
         csv_text = request.POST.get('csv_text')
-        my_list = [num.strip() for num in csv_text.split(',')]
+        segmented_list = [[item.strip() for item in row.split(',')] for row in csv_text.split('\n')]
+
         file_name = key + ".csv"
+
         with open(file_name,'w') as f:
-            writer = csv.writer(f, delimiter = ",")
-            writer.writerow(my_list)
+            writer = csv.writer(f)
+            writer.writerow(segmented_list[0])
+            writer.writerows(segmented_list[1:])
 
         file_name = default_storage.save(file_name, open(file_name))
         temp = TemporaryFile(key = key, data = file_name)

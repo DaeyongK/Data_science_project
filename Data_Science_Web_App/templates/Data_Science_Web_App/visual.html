@@ -1,0 +1,20 @@
+{% extends 'Data_Science_Web_App/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>View Packaged CSV</h1>
+    <br>
+    <form enctype='multipart/form-data' method="POST">
+      {% csrf_token %}
+      <label for="key_field">Enter key of the data you want to visualize</label>
+      <input type="text" name="key_field" placeholder="Enter your key here">
+      <br>
+      <button type="submit">Upload</button>
+      <br>
+    </form>
+    <br>
+    {{ loaded_data | safe }}
+  </div>
+</div>
+
+{% endblock %}
