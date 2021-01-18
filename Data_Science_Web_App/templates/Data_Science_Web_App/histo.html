@@ -3,8 +3,8 @@
   <div class="jumbotron">
     <div class="container">
       <form enctype="multipart/form-data" method="post">
-        {{form.as_p}}
         {% csrf_token %}
+        {{form.as_p}}
         <input type="submit" class='btn btn-primary' value="Submit">
       </form>
       <br>

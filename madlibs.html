@@ -1,0 +1,46 @@
+<!-- How to create your custom HTML page for your algorithm -->
+<!-- First, we need to extend from our boilerplate code to keep things consistent -->
+{% extends 'Data_Science_Web_App/base.html' %}
+<!-- Next, load static in order to display graphs effectively -->
+{% load static %}
+<!-- Treat this as a segment of code that can be placed into the boilerplate code, so whatever is between {% block body_block %} and {% endblock %} will be inserted into boilerplate code -->
+{% block body_block %}
+
+  <div class="jumbotron">
+    <div class="container">
+      <form enctype="multipart/form-data" method="post">
+        <!-- This is just a line of code for security, so don't worry about it -->
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class='btn btn-primary' data-toggle="tooltip" data-placement="top" title="Submit your data!" value="Submit">
+      </form>
+      <br>
+      <br>
+      <br>
+      <br>
+      {% if success %}
+        <!-- Display the graph that your algorithm created -->
+        <img src="/media/graphs/name_of_graph.png" alt="Graph was not displayed for some reason">
+      {% else %}
+        {{ error_message }}
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
+
+
+
+
+<!-- How to properly link the base HTML code to your HTML page with a shortcut -->
+<!-- In base.html, you will see the following code -->
+<div class="dropdown-menu sm-menu">
+  <a class="dropdown-item" href="{% url 'Data_Science_Web_App:variable_statistics' %}">Variable Statistics</a>
+  <a class="dropdown-item" href="{% url 'Data_Science_Web_App:plot' %}">Scatter Plot</a>
+  <a class="dropdown-item" href="{% url 'Data_Science_Web_App:histoplot' %}">Histogram</a>
+  <a class="dropdown-item" href="{% url 'Data_Science_Web_App:package' %}">Packaging</a>
+  <a class="dropdown-item" href="{% url 'Data_Science_Web_App:visual' %}">Visualization</a>
+</div>
+
+<!-- Once you have located the segment of code, add your own line of code inside of the div -->
+<a class="dropdown-item" href="{% url 'Data_Science_Web_App:name_of_view' %}">name_of_view</a>
