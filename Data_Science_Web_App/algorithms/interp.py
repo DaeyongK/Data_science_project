@@ -36,20 +36,20 @@ def interp(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, iKind):
 
     if xLbl == "" or xLbl == None:
         xLblF = file.columns[xColN]
-        ax.set_xlabel(xLblF[2:-1])
+        ax.set_xlabel(xLblF[0])
     else:
         xLblF = xLbl
         ax.set_xlabel(xLblF)
     if yLbl == "" or yLbl == None:
         yLblF = file.columns[yColN]
-        ax.set_ylabel(yLblF[2:-1])
+        ax.set_ylabel(yLblF[0])
     else:
         yLblF = yLbl
         ax.set_ylabel(yLblF)
 
     #Automatically determine title if not given
     if ttl == "" or ttl == None:
-        ax.set_title(yLblF[2:-1] + " vs. " + xLblF[2:-1])
+        ax.set_title(yLblF[0] + " vs. " + xLblF[0])
     else:
         ax.set_title(ttl)
 

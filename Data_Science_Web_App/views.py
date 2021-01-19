@@ -19,6 +19,7 @@ import mpld3
 import csv
 import random
 import string
+import simplejson
 from Data_Science_Project.settings import MEDIA_ROOT, BASE_DIR
 # from Data_Science_Project.settings import STATIC_ROOT, TEMPLATE_DIR
 
@@ -313,7 +314,6 @@ def visual(request):
             try:
                 csv_file = locate(key_field)
                 data_set = pd.read_csv(csv_file).to_html()
-                # print(csv_file)
                 context = {
                     'loaded_data': data_set,
                 }

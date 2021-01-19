@@ -43,4 +43,22 @@
 </div>
 
 <!-- Once you have located the segment of code, add your own line of code inside of the div -->
-<a class="dropdown-item" href="{% url 'Data_Science_Web_App:name_of_view' %}">name_of_view</a>
+<a class="dropdown-item" href="{% url 'Data_Science_Web_App:name_of_view' %}">Name of Algorithm</a>
+
+<!-- After doing that, add in a similar line of code for the search bar functionality -->
+<!-- In base.html, you will see the following code -->
+<div id="myDropdown" class="dropdown-content topcorner">
+  <input type="text" placeholder="Search..." id="myInput" onkeyup="filterFunction()">
+  <a href="{% url 'Data_Science_Web_App:variable_statistics' %}">Variable Statistics</a>
+  <a href="{% url 'Data_Science_Web_App:plot' %}">Scatter Plot</a>
+  <a href="{% url 'Data_Science_Web_App:histoplot' %}">Histogram</a>
+  <a href="{% url 'Data_Science_Web_App:package' %}">Packaging</a>
+  <a href="{% url 'Data_Science_Web_App:visual' %}">Visualization</a>
+  <a href="{% url 'Data_Science_Web_App:gaussian' %}">Gaussian Smoothing</a>
+  <a href="{% url 'Data_Science_Web_App:density' %}">Density Function</a>
+  <a href="{% url 'Data_Science_Web_App:interpolation' %}">Interpolation</a>
+  <a href="{% url 'Data_Science_Web_App:transformation' %}">Data Transformation</a>
+</div>
+
+<!-- Once you have located the segment of code, add your own line of code inside of the div -->
+<a href="{% url 'Data_Science_Web_App:name_of_view' %}">Name of Algorithm</a>

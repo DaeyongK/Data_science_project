@@ -31,9 +31,7 @@ def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, alphaVal):
     ax = fig.add_subplot()
 
     if alphaVal == "" or alphaVal == None:
-        alphaVal = 20
-
-    alphaVal /= 100
+        alphaVal = 0.2
 
     #Creates scatter plot
     ax.scatter(xCol, yCol, marker = ".", color = "tab:orange", alpha = alphaVal)

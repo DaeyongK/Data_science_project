@@ -35,12 +35,12 @@
 
 
 # Django Form Example
-# Before creating your custom Django Form, please note that as of now, Decimal Fields will not work with Django Forms
-# For variables such as alpha values, a workaround is to take in an integer, and within the algorithm divide it into a float
 class NameOfForm(forms.Form):
     # Here are some options for Form fields
     # Once again, the data_file variable is necessary
     data_file = forms.FileField(label = 'CSV File')
+    # Option to take in Floats or Decimals (It is recommended that you use decimals whenever it is possible, as it offers more flexibility)
+    decimal_field_name = forms.DecimalField(label = 'name_of_field')
     # Option to take in Integers
     integer_field_name = forms.IntegerField(label = 'name_of_field')
     # Option to take in characters or text

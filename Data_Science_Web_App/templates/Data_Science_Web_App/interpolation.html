@@ -5,7 +5,7 @@
     <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
       {{form.as_p}}
-      <input type="submit" class='btn btn-primary' value="Submit">
+      <input type="submit" class='btn btn-primary' data-toggle="tooltip" data-placement="top" title="Submit your data!" value="Submit">
     </form>
     <br>
     <br>
