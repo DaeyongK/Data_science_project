@@ -12,7 +12,7 @@ function filterFunction() {
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
   div = document.getElementById("myDropdown");
-  a = div.getElementsByTagName("a");
+  a = div.getElementsByTagName("button");
   for (i = 0; i < a.length; i++) {
     txtValue = a[i].textContent;
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
