@@ -14,4 +14,5 @@ urlpatterns = [
     path('transformation/', views.transformation, name='transformation'),
     path('packaging/', views.package, name='package'),
     path('visual/', views.visual, name = 'visual'),
+    path('curve_fitter', views.curve_fitter, name='curve_fitter'),
 ]

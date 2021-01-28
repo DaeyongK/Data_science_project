@@ -1,0 +1,24 @@
+{% extends 'Data_Science_Web_App/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+  <div class="container">
+    <form enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" class='btn btn-primary' data-toggle="tooltip" data-placement="top" title="Submit your data!" value="Submit">
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    {% if success %}
+      <img src="/media/graphs/curve_fitter.png" alt="Graph was not displayed for some reason">
+    {% else %}
+      {{ error_message }}
+    {% endif %}
+    <br>
+    <br>
+    {{ equation }}
+  </div>
+</div>
+{% endblock %}

@@ -42,3 +42,16 @@ class InterpolationForm(forms.Form):
     lowerY = forms.DecimalField(required=False, label = 'Minimum value of Y axis')
     upperY = forms.DecimalField(required=False, label = 'Maximum value of Y axis')
     iKind = forms.CharField(required=False, label = 'Kind of Interpolation')
+
+class CurveFitterForm(forms.Form):
+    data_file = forms.FileField(label = 'CSV File')
+    xIndex = forms.IntegerField(label = 'Index of X axis')
+    yIndex = forms.IntegerField(label = 'Index of Y axis')
+    xLabel = forms.CharField(required=False, label = 'Label for X axis')
+    yLabel = forms.CharField(required=False, label = 'Label for Y axis')
+    title = forms.CharField(required=False, label = 'Title of the graph')
+    lowerX = forms.DecimalField(required=False, label = 'Minimum value of X axis')
+    upperX = forms.DecimalField(required=False, label = 'Maximum value of X axis')
+    lowerY = forms.DecimalField(required=False, label = 'Minimum value of Y axis')
+    upperY = forms.DecimalField(required=False, label = 'Maximum value of Y axis')
+    fit_func = forms.CharField(required=False, label = 'Fit Function')
