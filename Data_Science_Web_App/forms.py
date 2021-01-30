@@ -55,3 +55,4 @@ class CurveFitterForm(forms.Form):
     lowerY = forms.DecimalField(required=False, label = 'Minimum value of Y axis')
     upperY = forms.DecimalField(required=False, label = 'Maximum value of Y axis')
     fit_func = forms.CharField(required=False, label = 'Fit Function')
+    y_func = forms.CharField(required=False, label = 'Y Function')
