@@ -2,7 +2,8 @@ from django import forms
 # from django.core import validators
 
 class PlotChartForm(forms.Form):
-    data_file = forms.FileField(label = 'CSV File')
+    data_file = forms.FileField(required=False, label = 'CSV File')
+    key = forms.CharField(required=False, label = 'Key')
     xIndex = forms.IntegerField(label = 'Index of X axis')
     yIndex = forms.IntegerField(label = 'Index of Y axis')
     xLabel = forms.CharField(required=False, label = 'Label for X axis')
@@ -16,7 +17,8 @@ class PlotChartForm(forms.Form):
 
 
 class HistoForm(forms.Form):
-    data_file = forms.FileField(label = 'CSV File')
+    data_file = forms.FileField(required=False, label = 'CSV File')
+    key = forms.CharField(required=False, label = 'Key')
     colN = forms.IntegerField(label = 'Column Number')
     xLabel = forms.CharField(required=False, label = 'Label for X axis')
     yLabel = forms.CharField(required=False, label = 'Label for Y axis')
@@ -31,7 +33,8 @@ class HistoForm(forms.Form):
 
 
 class InterpolationForm(forms.Form):
-    data_file = forms.FileField(label = 'CSV File')
+    data_file = forms.FileField(required=False, label = 'CSV File')
+    key = forms.CharField(required=False, label = 'Key')
     xIndex = forms.IntegerField(label = 'Index of X axis')
     yIndex = forms.IntegerField(label = 'Index of Y axis')
     xLabel = forms.CharField(required=False, label = 'Label for X axis')
@@ -44,7 +47,8 @@ class InterpolationForm(forms.Form):
     iKind = forms.CharField(required=False, label = 'Kind of Interpolation')
 
 class CurveFitterForm(forms.Form):
-    data_file = forms.FileField(label = 'CSV File')
+    data_file = forms.FileField(required=False, label = 'CSV File')
+    key = forms.CharField(required=False, label = 'Key')
     xIndex = forms.IntegerField(label = 'Index of X axis')
     yIndex = forms.IntegerField(label = 'Index of Y axis')
     xLabel = forms.CharField(required=False, label = 'Label for X axis')
@@ -56,3 +60,10 @@ class CurveFitterForm(forms.Form):
     upperY = forms.DecimalField(required=False, label = 'Maximum value of Y axis')
     fit_func = forms.CharField(required=False, label = 'Fit Function')
     y_func = forms.CharField(required=False, label = 'Y Function')
+
+class LogForm(forms.Form):
+    data_file = forms.FileField(required=False, label = 'CSV File')
+    key = forms.CharField(required=False, label = 'Key')
+    colN = forms.IntegerField(label = 'Column Number')
+    negative = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Yes'), (False, 'No')], label = 'Do you want your values to be non negative?')
+    package = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Package'), (False, 'Download')], label = 'Do you want to package or download your data?')

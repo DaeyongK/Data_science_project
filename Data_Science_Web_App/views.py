@@ -6,6 +6,7 @@ from Data_Science_Web_App.algorithms.xyplot import xyplot
 from Data_Science_Web_App.algorithms.histo import histo
 from Data_Science_Web_App.algorithms.interp import interp
 from Data_Science_Web_App.algorithms.curveFitter import curveFitter
+from Data_Science_Web_App.algorithms.log import logarithm
 from Data_Science_Web_App.algorithms.key import generate_key
 from Data_Science_Web_App.algorithms.locator import locate
 from django.http import HttpResponse
@@ -636,6 +637,80 @@ def curve_fitter(request):
 
 
 
+
+
+def log(request):
+
+    template_name = 'Data_Science_Web_App/log.html'
+
+    form = forms.LogForm()
+    context={
+        'success': False,
+        'form': form,
+        'message': ' ',
+        'error_message': 'Please fill out the required fields!'
+    }
+
+    if request.method == 'POST':
+
+        form = forms.LogForm(request.POST, request.FILES)
+
+
+        #Checking if all fields are valid
+        if form.is_valid():
+
+            data_file = form.cleaned_data['data_file']
+            colN = form.cleaned_data['colN']
+            negative = form.cleaned_data['negative']
+            package = form.cleaned_data['package']
+            if not data_file.name.endswith('.csv'):
+
+                context={
+                    'success': False,
+                    'form': form,
+                    'message': ' ',
+                    'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                }
+
+                return render(request, template_name, context)
+            try:
+                data_set = pd.read_csv(data_file)
+                df = logarithm(data_set, colN, negative)
+                if package=="True":
+                    key = generate_key(10)
+                    file_name = key + ".csv"
+                    df.to_csv(file_name, index=False)
+                    file_name = default_storage.save(file_name, open(file_name))
+                    temp = TemporaryFile(key = key, data = file_name)
+                    temp.save()
+                    context={
+                        'success': True,
+                        'form': form,
+                        'message': 'Saved! \n Here is your key: ' + key,
+                        'error_message': ' '
+                    }
+
+                    return render(request, template_name, context)
+
+                else:
+                    response = HttpResponse(content_type = 'text/csv')
+                    response['Content-Disposition'] = 'attachment; filename = "export_data.csv"'
+
+                    df.to_csv(response, index=False)
+                    return response
+            except:
+
+                #Returning error message on failure
+                context={
+                    'success': False,
+                    'form': form,
+                    'message': ' ',
+                    'error_message': 'Something went wrong. Please check your inputs'
+                }
+
+                return render(request, template_name, context)
+
+    return render(request, template_name, context)
 
 
 def package(request):
