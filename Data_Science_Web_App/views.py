@@ -229,6 +229,7 @@ def plot(request):
         if form.is_valid():
 
             data_file = form.cleaned_data['data_file']
+            key = form.cleaned_data['key']
             xIndex = form.cleaned_data['xIndex']
             yIndex = form.cleaned_data['yIndex']
             xLabel = form.cleaned_data['xLabel']
@@ -240,19 +241,40 @@ def plot(request):
             upperY = form.cleaned_data['upperY']
             alphaVal = form.cleaned_data['alphaVal']
 
-            if not data_file.name.endswith('.csv'):
-
-                context={
-                    'success': False,
-                    'form': form,
-                    'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
-                }
-
-                return render(request, template_name, context)
-
 
             #Reading data_file with pd, so that data_set is now a pd dataframe
-            data_set = pd.read_csv(data_file)
+            if data_file != None:
+                if not data_file.name.endswith('.csv'):
+
+                    context={
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    }
+
+                    return render(request, template_name, context)
+
+                data_set = pd.read_csv(data_file)
+
+            elif key != None:
+                try:
+                    csv_file = locate(key)
+                    data_set = pd.read_csv(csv_file)
+                except:
+                    context = {
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The key was invalid'
+                    }
+                    return render(request, template_name, context)
+            else:
+                context = {
+                    'success': False,
+                    'form': form,
+                    'error_message': 'Please provide a CSV File or Key!'
+                }
+                return render(request, template_name, context)
+
             xR = [lowerX, upperX]
             yR = [lowerY, upperY]
 
@@ -400,6 +422,7 @@ def histoplot(request):
         if form.is_valid():
 
             data_file = form.cleaned_data['data_file']
+            key = form.cleaned_data['key']
             colN = form.cleaned_data['colN']
             xLabel = form.cleaned_data['xLabel']
             yLabel = form.cleaned_data['yLabel']
@@ -413,19 +436,38 @@ def histoplot(request):
             densYes = form.cleaned_data['densYes']
 
 
-            if not data_file.name.endswith('.csv'):
+            if data_file != None:
+                if not data_file.name.endswith('.csv'):
 
-                context={
+                    context={
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    }
+
+                    return render(request, template_name, context)
+
+                data_set = pd.read_csv(data_file)
+
+            elif key != None:
+                try:
+                    csv_file = locate(key)
+                    data_set = pd.read_csv(csv_file)
+                except:
+                    context = {
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The key was invalid'
+                    }
+                    return render(request, template_name, context)
+            else:
+                context = {
                     'success': False,
                     'form': form,
-                    'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    'error_message': 'Please provide a CSV File or Key!'
                 }
-
                 return render(request, template_name, context)
 
-
-            #Reading data_file with pd, so that data_set is now a pd dataframe
-            data_set = pd.read_csv(data_file)
             xR = [lowerX, upperX]
             yR = [lowerY, upperY]
 
@@ -487,6 +529,7 @@ def interpolation(request):
         if form.is_valid():
 
             data_file = form.cleaned_data['data_file']
+            key = form.cleaned_data['key']
             xIndex = form.cleaned_data['xIndex']
             yIndex = form.cleaned_data['yIndex']
             xLabel = form.cleaned_data['xLabel']
@@ -498,19 +541,38 @@ def interpolation(request):
             upperY = form.cleaned_data['upperY']
             iKind = form.cleaned_data['iKind']
 
-            if not data_file.name.endswith('.csv'):
+            if data_file != None:
+                if not data_file.name.endswith('.csv'):
 
-                context={
+                    context={
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    }
+
+                    return render(request, template_name, context)
+
+                data_set = pd.read_csv(data_file)
+
+            elif key != None:
+                try:
+                    csv_file = locate(key)
+                    data_set = pd.read_csv(csv_file)
+                except:
+                    context = {
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The key was invalid'
+                    }
+                    return render(request, template_name, context)
+            else:
+                context = {
                     'success': False,
                     'form': form,
-                    'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    'error_message': 'Please provide a CSV File or Key!'
                 }
-
                 return render(request, template_name, context)
 
-
-            #Reading data_file with pd, so that data_set is now a pd dataframe
-            data_set = pd.read_csv(data_file)
             xR = [lowerX, upperX]
             yR = [lowerY, upperY]
 
@@ -572,6 +634,7 @@ def curve_fitter(request):
         if form.is_valid():
 
             data_file = form.cleaned_data['data_file']
+            key = form.cleaned_data['key']
             xIndex = form.cleaned_data['xIndex']
             yIndex = form.cleaned_data['yIndex']
             xLabel = form.cleaned_data['xLabel']
@@ -584,43 +647,62 @@ def curve_fitter(request):
             fit_func = form.cleaned_data['fit_func']
             y_func = form.cleaned_data['y_func']
 
-            if not data_file.name.endswith('.csv'):
+            if data_file != None:
+                if not data_file.name.endswith('.csv'):
 
-                context={
+                    context={
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    }
+
+                    return render(request, template_name, context)
+
+                data_set = pd.read_csv(data_file)
+
+            elif key != None:
+                try:
+                    csv_file = locate(key)
+                    data_set = pd.read_csv(csv_file)
+                except:
+                    context = {
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The key was invalid'
+                    }
+                    return render(request, template_name, context)
+            else:
+                context = {
                     'success': False,
                     'form': form,
-                    'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    'error_message': 'Please provide a CSV File or Key!'
                 }
-
                 return render(request, template_name, context)
 
-
-            #Reading data_file with pd, so that data_set is now a pd dataframe
-            data_set = pd.read_csv(data_file)
             xR = [lowerX, upperX]
             yR = [lowerY, upperY]
 
 
 
             #Trying to create a plot with given fields, and if successful save it
-            try:
+            # try:
 
-                figure, fit = curveFitter(data_set, xIndex, yIndex, xLabel, yLabel, title, xR, yR, fit_func, y_func)
+            figure, fit = curveFitter(data_set, xIndex, yIndex, xLabel, yLabel, title, xR, yR, fit_func, y_func)
 
-                graph_image = 'curve_fitter.png'
+            graph_image = 'curve_fitter.png'
 
-                figure.savefig(os.path.join(graph_path, graph_image))
+            figure.savefig(os.path.join(graph_path, graph_image))
 
-            except:
-
-                #Returning error message on failure
-                context={
-                    'success': False,
-                    'form': form,
-                    'error_message': 'Something went wrong with creating the graph. Did you format your data properly?'
-                }
-
-                return render(request, template_name, context)
+            # except:
+            #
+            #     #Returning error message on failure
+            #     context={
+            #         'success': False,
+            #         'form': form,
+            #         'error_message': 'Something went wrong with creating the graph. Did you format your data properly?'
+            #     }
+            #
+            #     return render(request, template_name, context)
 
             #The final context dictionary with success being true. In this case, the error_message shouldn't pop up
             context = {
@@ -660,21 +742,43 @@ def log(request):
         if form.is_valid():
 
             data_file = form.cleaned_data['data_file']
+            key = form.cleaned_data['key']
             colN = form.cleaned_data['colN']
             negative = form.cleaned_data['negative']
             package = form.cleaned_data['package']
-            if not data_file.name.endswith('.csv'):
+            if data_file != None:
+                if not data_file.name.endswith('.csv'):
 
-                context={
+                    context={
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    }
+
+                    return render(request, template_name, context)
+
+                data_set = pd.read_csv(data_file)
+
+            elif key != None:
+                try:
+                    csv_file = locate(key)
+                    data_set = pd.read_csv(csv_file)
+                except:
+                    context = {
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The key was invalid'
+                    }
+                    return render(request, template_name, context)
+            else:
+                context = {
                     'success': False,
                     'form': form,
-                    'message': ' ',
-                    'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    'error_message': 'Please provide a CSV File or Key!'
                 }
-
                 return render(request, template_name, context)
+
             try:
-                data_set = pd.read_csv(data_file)
                 df = logarithm(data_set, colN, negative)
                 if package=="True":
                     key = generate_key(10)

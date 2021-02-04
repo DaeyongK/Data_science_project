@@ -69,8 +69,8 @@
           </ul>
         </div>
       </nav>
-      <!-- <div id="myDropdown" class="dropdown-content topcorner">
-        <input type="text" placeholder="Search..." id="myInput" onkeyup="filterFunction()">
+      <div id="myDropdownNav" class="dropdown-content topcorner">
+        <input type="text" placeholder="Search..." id="myInputNav" onkeyup="filterFunctionNav()">
         <a href="{% url 'Data_Science_Web_App:variable_statistics' %}">Variable Statistics</a>
         <a href="{% url 'Data_Science_Web_App:plot' %}">Scatter Plot</a>
         <a href="{% url 'Data_Science_Web_App:histoplot' %}">Histogram</a>
@@ -80,7 +80,9 @@
         <a href="{% url 'Data_Science_Web_App:density' %}">Density Function</a>
         <a href="{% url 'Data_Science_Web_App:interpolation' %}">Interpolation</a>
         <a href="{% url 'Data_Science_Web_App:transformation' %}">Data Transformation</a>
-      </div> -->
+        <a href="{% url 'Data_Science_Web_App:curve_fitter' %}">Curve Fitter</a>
+        <a href="{% url 'Data_Science_Web_App:log' %}">Logarithm</a>
+      </div>
       {% block body_block %}
       {% endblock %}
 
