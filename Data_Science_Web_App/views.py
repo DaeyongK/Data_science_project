@@ -31,7 +31,6 @@ graph_path = os.path.abspath('media/graphs')
 
 # Create your views here.
 
-
 #CBVs
 class AboutView(TemplateView):
     template_name = 'Data_Science_Web_App/about.html'
@@ -509,6 +508,129 @@ def histoplot(request):
 
 
 
+
+
+
+
+def custom(request):
+    #All basic variables
+    template_name = 'Data_Science_Web_App/custom.html'
+    form = forms.CustomForm()
+    context={
+        'success': False,
+        'form': form,
+        'error_message': 'Please fill out the required fields!'
+    }
+
+
+    if request.method == 'POST':
+
+        form = forms.CustomForm(request.POST, request.FILES)
+
+
+        #Checking if all fields are valid
+        if form.is_valid():
+
+            data_file = form.cleaned_data['data_file']
+            key = form.cleaned_data['key']
+            code = form.cleaned_data['code']
+            package = form.cleaned_data['package']
+
+            if data_file != None:
+                if not data_file.name.endswith('.csv'):
+
+                    context={
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The input type was invalid; did you make sure you used a CSV file?'
+                    }
+
+                    return render(request, template_name, context)
+
+                data_set = pd.read_csv(data_file)
+
+            elif key != None:
+                try:
+                    csv_file = locate(key)
+                    data_set = pd.read_csv(csv_file)
+                except:
+                    context = {
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The key was invalid'
+                    }
+                    return render(request, template_name, context)
+            else:
+                context = {
+                    'success': False,
+                    'form': form,
+                    'error_message': 'Please provide a CSV File or Key!'
+                }
+                return render(request, template_name, context)
+
+
+
+
+            # try:
+
+            global run_code, dataset
+            dataset = data_set
+            func_name = code[code.find("def "):code.find("(")]+"(dataset)"
+            run_code = code + "\n" + "return_df = " + func_name[func_name.rfind(" ")+1:]
+            exec("global run_code, dataset; \n" + run_code, globals())
+            df = return_df
+            if package=="True":
+                key = generate_key(10)
+                file_name = key + ".csv"
+                df.to_csv(file_name, index=False)
+                file_name = default_storage.save(file_name, open(file_name))
+                temp = TemporaryFile(key = key, data = file_name)
+                temp.save()
+                context={
+                    'success': True,
+                    'form': form,
+                    'message': 'Saved! \n Here is your key: ' + key,
+                    'error_message': ' '
+                }
+
+                return render(request, template_name, context)
+
+            else:
+                response = HttpResponse(content_type = 'text/csv')
+                response['Content-Disposition'] = 'attachment; filename = "export_data.csv"'
+
+                df.to_csv(response, index=False)
+                return response
+
+            # except:
+            #
+            #     #Returning error message on failure
+            #     context={
+            #         'success': False,
+            #         'form': form,
+            #         'error_message': 'Something went wrong with creating the graph. Did you format your data properly?'
+            #     }
+            #
+            #     return render(request, template_name, context)
+
+            #The final context dictionary with success being true. In this case, the error_message shouldn't pop up
+            context = {
+                'success': True,
+                'form': form,
+                'error_message': 'The graph should have been here, but something went wrong'
+            }
+
+    return render(request, template_name, context)
+
+
+
+
+
+
+
+
+
+
 def interpolation(request):
     #All basic variables
     template_name = 'Data_Science_Web_App/interpolation.html'
@@ -815,6 +937,13 @@ def log(request):
                 return render(request, template_name, context)
 
     return render(request, template_name, context)
+
+
+
+
+
+
+
 
 
 def package(request):

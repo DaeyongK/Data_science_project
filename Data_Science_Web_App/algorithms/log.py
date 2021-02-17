@@ -21,3 +21,16 @@ def logarithm(file, N, negative):
 # log(file, N, False)
 #
 # plt.plot(file.iloc[:, N])
+# 
+# import pandas as pandas
+# import math as math
+# import matplotlib.pyplot as plt
+#
+# def logarithm(file):
+#     m = min(file.iloc[:, 1])
+#     for i in range(len(file.iloc[:, 1])):
+#         if file.iloc[i, 1] > 0:
+#             file.iloc[i, 1] = math.log10(file.iloc[i, 1])
+#         else:
+#             file.iloc[i, 1] = float('NaN')
+#     return file

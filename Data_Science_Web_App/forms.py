@@ -67,3 +67,9 @@ class LogForm(forms.Form):
     colN = forms.IntegerField(label = 'Column Number')
     negative = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Yes'), (False, 'No')], label = 'Do you want your values to be non negative?')
     package = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Package'), (False, 'Download')], label = 'Do you want to package or download your data?')
+
+class CustomForm(forms.Form):
+    data_file = forms.FileField(required=False, label = 'CSV File')
+    key = forms.CharField(required=False, label = 'Key')
+    code = forms.CharField(widget=forms.Textarea(attrs={'rows':20, 'cols':100, 'style': 'width:100%;'}), label = 'Code')
+    package = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Package'), (False, 'Download')], label = 'Do you want to package or download your data?')
