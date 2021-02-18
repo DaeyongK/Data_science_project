@@ -24,94 +24,88 @@
       <br>
       <button type="submit">Upload</button>
     </form>
-  </div>
-</div>
-
-<div class="jumbotron">
-  <div class="container">
-    <h2>Here is the average of all of the numbers inside of your CSV file:</h2>
     <br>
-    <h3>{{ num }}</h3>
-  </div>
-
-</div>
-
-<div class="jumbotron">
-  <div class="container">
-    {% if left == 'is' %}
-      <h2>Here is the median of all of the numbers inside of your CSV file:</h2>
+    <br>
+    <br>
+    {% if success %}
+      {% if left == 'is' %}
+        <table>
+          <tr>
+            <th>Mean</th>
+            <th>Median</th>
+            <th>Mode</th>
+          </tr>
+          <tr>
+            <td>{{ num }}</td>
+            <td>{{ mid }}</td>
+            <td>{{ mode }}</td>
+          </tr>
+        </table>
+      {% else %}
+        <table>
+          <tr>
+            <th>Mean</th>
+            <th>Left Median</th>
+            <th>Median</th>
+            <th>Right Median</th>
+            <th>Mode</th>
+          </tr>
+          <tr>
+            <td>{{ num }}</td>
+            <td>{{ left }}</td>
+            <td>{{ mid }}</td>
+            <td>{{ right }}</td>
+            <td>{{ mode }}</td>
+          </tr>
+        </table>
+      {% endif %}
       <br>
-      <h3>{{ mid }}</h3>
+      <br>
+      <table>
+        <tr>
+          <th>Standard Deviation</th>
+          <th>Variance</th>
+          <th>Range</th>
+          <th>IQR</th>
+          <th>Quartile 1</th>
+          <th>Quartile 3</th>
+        </tr>
+        <tr>
+          <td>{{ std }}</td>
+          <td>{{ variance }}</td>
+          <td>{{ range }}</td>
+          <td>{{ IQR }}</td>
+          <td>{{ Q1 }}</td>
+          <td>{{ Q3 }}</td>
+        </tr>
+      </table>
+      <br>
+      <br>
+      <table>
+        <tr>
+          <th>Z-score: -3</th>
+          <th>Z-score: -2</th>
+          <th>Z-score: -1</th>
+          <th>Z-score: 1</th>
+          <th>Z-score: 2</th>
+          <th>Z-score: 3</th>
+        </tr>
+        <tr>
+          <td>{{ std3lower }}</td>
+          <td>{{ std2lower }}</td>
+          <td>{{ std1lower }}</td>
+          <td>{{ std1upper }}</td>
+          <td>{{ std2upper }}</td>
+          <td>{{ std3upper }}</td>
+        </tr>
+      </table>
     {% else %}
-      <h2>Here is the median of all of the numbers inside of your CSV file:</h2>
-      <br>
-      <h3>Left Median: {{ left }}</h3>
-      <br>
-      <h3>Median: {{ mid }}</h3>
-      <br>
-      <h3>Right Median: {{ right }}</h3>
+      <h3>{{ message }}</h3>
     {% endif %}
   </div>
 </div>
 
-<div class="jumbotron">
-  <div class="container">
-    <h2>Here is the mode of all of the numbers inside of your CSV file:</h2>
-    <br>
-    <h3>{{ mode }}</h3>
-  </div>
-</div>
 
-<div class="jumbotron">
-  <div class="container">
-    <h2>Here is the standard deviation of your CSV file: </h2>
-    <br>
-    <h3>{{ std }}</h3>
-    <br>
-    <h2>Here is the value that is one standard deviation left from the mean in your CSV file: </h2>
-    <br>
-    <h3>{{ std1lower }}</h3>
-    <br>
-    <h2>Here is the value that is one standard deviation right from the mean in your CSV file: </h2>
-    <br>
-    <h3>{{ std1upper }}</h3>
-    <br>
-    <h2>Here is the value that is two standard deviations left from the mean in your CSV file: </h2>
-    <br>
-    <h3>{{ std2lower }}</h3>
-    <br>
-    <h2>Here is the value that is two standard deviations right from the mean in your CSV file: </h2>
-    <br>
-    <h3>{{ std2upper }}</h3>
-    <br>
-    <h2>Here is the value that is three standard deviations left from the mean in your CSV file: </h2>
-    <br>
-    <h3>{{ std3lower }}</h3>
-    <br>
-    <h2>Here is the value that is three standard deviations right from the mean in your CSV file: </h2>
-    <br>
-    <h3>{{ std3upper }}</h3>
-    <br>
-    <h2>Here is the variance of your CSV file: </h2>
-    <br>
-    <h3>{{ variance }}</h3>
-    <br>
-    <h2>Here is the first quartile of your CSV file: </h2>
-    <br>
-    <h3>{{ Q1 }}</h3>
-    <br>
-    <h2>Here is the third quartile of your CSV file: </h2>
-    <br>
-    <h3>{{ Q3 }}</h3>
-    <br>
-    <h2>Here is the Interquartile Range (IQR) of your CSV file: </h2>
-    <br>
-    <h3>{{ IQR }}</h3>
-    <br>
-    <h2>Here is the range of your CSV file: </h2>
-    <br>
-    <h3>{{ range }}</h3>
 
-  </div>
-</div>
+
 {% endblock %}
