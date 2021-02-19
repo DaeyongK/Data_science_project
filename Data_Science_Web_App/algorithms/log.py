@@ -21,7 +21,7 @@ def logarithm(file, N, negative):
 # log(file, N, False)
 #
 # plt.plot(file.iloc[:, N])
-# 
+#
 # import pandas as pandas
 # import math as math
 # import matplotlib.pyplot as plt

@@ -66,125 +66,170 @@ def index_view(request):
 def variable_statistics(request):
 
     template_name = 'Data_Science_Web_App/variable_stats.html'
+    form = forms.VarForm()
 
     if request.method == "GET":
 
         context={
             'success': False,
+            'form': form,
             'message': "",
         }
         return render(request, template_name, context)
 
-    try:
+    if request.method == "POST":
 
-        csv_file = request.FILES['file_name']
-        csv_text = request.POST.get('csv_text')
-        key_field = request.POST.get('key_field')
+        form = forms.VarForm(request.POST, request.FILES)
 
-        if csv_text == "" and key_field == "":
+        if form.is_valid():
 
-            csv_file = request.FILES['file_name']
+            key = form.cleaned_data['key']
+            data_file = form.cleaned_data['data_file']
+            rc = form.cleaned_data['rc']
+            num = form.cleaned_data['num']
 
-            if not csv_file.name.endswith('.csv'):
+            if key != "":
 
-                context={
-                    'success': False,
-                    'message': 'Please ensure that the uploaded file is a CSV file containing only numerical values',
-                }
-                return render(request, template_name, context)
+                try:
 
-            data_set = csv_file.read().decode('UTF-8')
+                    csv_file = locate(key)
+                    data_set = pd.read_csv(csv_file)
+
+                except:
+
+                    context = {
+                        'success': False,
+                        'form': form,
+                        'message': 'The key was invalid',
+                    }
+                    return render(request, template_name, context)
+
+                if rc=="True":
+
+                    try:
+
+                        data_set = data_set.iloc[num].to_list()
+
+                    except:
+
+                        context = {
+                            'success': False,
+                            'form': form,
+                            'message': 'Please ensure that the data is formatted properly',
+                        }
+                        return render(request, template_name, context)
+
+                else:
+
+                    try:
+
+                        data_set = data_set.iloc[:,num].to_list()
+
+                    except:
+
+                        context = {
+                            'success': False,
+                            'form': form,
+                            'message': 'Please ensure that the data is formatted properly',
+                        }
+                        return render(request, template_name, context)
+
+            elif data_file != None:
+
+                if not data_file.name.endswith('.csv'):
+
+                    context={
+                        'success': False,
+                        'form': form,
+                        'error_message': 'Please ensure that the uploaded file is a CSV file',
+                    }
+                    return render(request, template_name, context)
+
+                data_set = pd.read_csv(data_file)
+
+                if rc=="True":
+
+                    try:
+
+                        data_set = data_set.iloc[num].tolist()
+
+                    except:
+
+                        context = {
+                            'success': False,
+                            'form': form,
+                            'message': 'Please ensure that the data is formatted properly',
+                        }
+                        return render(request, template_name, context)
+
+                else:
+
+                    try:
+
+                        data_set = data_set.iloc[:, num].tolist()
+
+                    except:
+
+                        context = {
+                            'success': False,
+                            'form': form,
+                            'message': 'Please ensure that the data is formatted properly',
+                        }
+                        return render(request, template_name, context)
 
         else:
 
-            context={
+            context = {
                 'success': False,
-                'message': 'Please enter your data into only one of the fields',
+                'form': form,
+                'error_message': 'Please fill out the required fields',
             }
             return render(request, template_name, context)
 
-    except:
+        try:
 
-        csv_text = request.POST.get('csv_text')
-        key_field = request.POST.get('key_field')
+            avgNum, mode_return, left, mid, right, std, std1lower, std1upper, std2lower, std2upper, std3lower, std3upper, variance, Q1, Q3, IQR, range =  variable_stats(data_set)
 
-        if csv_text == "" and key_field == "":
+            if mode_return == None:
 
-            context={
-                'success': False,
-                'message': 'Please provide an input',
-            }
-            return render(request, template_name, context)
+                modeNum = "No Mode"
 
-        elif csv_text != "" and key_field == "":
+            else:
 
-            data_set = csv_text
+                modeNum = " ".join(list(map(strWSpace, mode_return)))[:-2]
 
-        elif csv_text == "" and key_field != "":
-
-            try:
-
-                csv_file = locate(key_field)
-                data_set = csv_file.read().decode('UTF-8')
-
-            except:
-
-                context={
-                    'success': False,
-                    'message': 'Looks like your key was invalid',
-                }
-                return render(request, template_name, context)
-
-        elif csv_text != "" and key_field != "":
+        except:
 
             context={
                 'success': False,
-                'message': 'Please enter your data into only one of the fields',
+                'form': form,
+                'message': 'Please ensure that the data is formatted properly',
             }
             return render(request, template_name, context)
 
-    try:
-
-        avgNum, mode_return, left, mid, right, std, std1lower, std1upper, std2lower, std2upper, std3lower, std3upper, variance, Q1, Q3, IQR, range =  variable_stats(data_set)
-
-        if mode_return == None:
-
-            modeNum = "No Mode"
-
-        else:
-
-            modeNum = " ".join(list(map(strWSpace, mode_return)))[:-2]
-
-    except:
-
-        context={
-            'success': False,
-            'message': 'Please ensure that the data is formatted properly',
+        context = {
+            'success': True,
+            'form': form,
+            'num': avgNum,
+            'left': left,
+            'mid': mid,
+            'right': right,
+            'mode': modeNum,
+            'std': std,
+            'std1lower': std1lower,
+            'std1upper': std1upper,
+            'std2lower': std2lower,
+            'std2upper': std2upper,
+            'std3lower': std3lower,
+            'std3upper': std3upper,
+            'variance': variance,
+            'Q1': Q1,
+            'Q3': Q3,
+            'IQR': IQR,
+            'range': range
         }
+        
         return render(request, template_name, context)
-
-    context = {
-        'success': True,
-        'num': avgNum,
-        'left': left,
-        'mid': mid,
-        'right': right,
-        'mode': modeNum,
-        'std': std,
-        'std1lower': std1lower,
-        'std1upper': std1upper,
-        'std2lower': std2lower,
-        'std2upper': std2upper,
-        'std3lower': std3lower,
-        'std3upper': std3upper,
-        'variance': variance,
-        'Q1': Q1,
-        'Q3': Q3,
-        'IQR': IQR,
-        'range': range
-    }
-
-    return render(request, template_name, context)
 
 
 

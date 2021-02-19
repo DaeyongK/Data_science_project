@@ -4,25 +4,10 @@
   <div class="container">
     <h1>Variable Statistics</h1>
     <br>
-    <p>Given a list of numbers, the average of the numbers will be displayed</p>
-    <form enctype='multipart/form-data' method="POST">
+    <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
-      <label>Please upload a CSV file with only numbers</label>
-      <br>
-      <br>
-      <input type="file" name="file_name">
-      <br>
-      <br>
-      <label>or enter your data below</label>
-      <br>
-      <br>
-      <textarea name="csv_text" rows="8" cols="80"></textarea>
-      <br>
-      <br>
-      <label for="key_field">If you have a key, enter it here</label>
-      <input type="text" name="key_field" placeholder="Enter your key here">
-      <br>
-      <button type="submit">Upload</button>
+      {{form.as_p}}
+      <input type="submit" class='btn btn-primary' data-toggle="tooltip" data-placement="top" title="Submit your data!" value="Submit">
     </form>
     <br>
     <br>
