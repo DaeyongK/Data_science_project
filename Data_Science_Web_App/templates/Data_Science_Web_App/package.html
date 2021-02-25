@@ -2,23 +2,22 @@
 {% block body_block %}
 <div class="jumbotron">
   <div class="container">
-    <h1>Packaging Data</h1>
-    <form enctype='multipart/form-data' method="POST">
+    <h1>Data Upload</h1>
+    <br>
+    <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
-      <label>Enter your data below</label>
-      <br>
-      <br>
-      <textarea name="csv_text" rows="8" cols="80"></textarea>
-      <br>
-      <br>
-      <button type="submit" name = "dl">Download CSV File</button>
-      <br>
-      <br>
-      <button type="submit" name = "package">Package</button>
+      {{form.as_p}}
+      <input type="submit" class='btn btn-primary' data-toggle="tooltip" data-placement="top" title="Upload your data!" value="Upload">
     </form>
     <br>
     <br>
-    {{message}}
+    <br>
+    <br>
+    {% if success %}
+      {{ message }}
+    {% else %}
+      {{ error_message }}
+    {% endif %}
   </div>
 </div>
 {% endblock %}

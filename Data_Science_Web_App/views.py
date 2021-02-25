@@ -59,7 +59,6 @@ def index_view(request):
                 self_file = TemporaryFile.objects.get(pk = object.pk)
                 data = str(object.data)
                 os.remove(os.path.join(MEDIA_ROOT, data))
-                os.remove(os.path.join(BASE_DIR, data))
                 self_file.delete()
 
     return render(request, template_name)
@@ -562,6 +561,7 @@ def custom(request):
                     file_name = default_storage.save(file_name, open(file_name))
                     temp = TemporaryFile(key = key, data = file_name)
                     temp.save()
+                    os.remove(os.path.join(BASE_DIR, file_name))
                     context={
                         'success': True,
                         'form': form,
@@ -872,6 +872,7 @@ def log(request):
                     file_name = default_storage.save(file_name, open(file_name))
                     temp = TemporaryFile(key = key, data = file_name)
                     temp.save()
+                    os.remove(os.path.join(BASE_DIR, file_name))
                     context={
                         'success': True,
                         'form': form,
@@ -905,55 +906,66 @@ def log(request):
 
 def package(request):
 
+    form = forms.UploadForm()
     template_name = 'Data_Science_Web_App/package.html'
+    context = {
+        'success': False,
+        'form': form,
+        'error_message': 'Please provide a CSV File or Key'
+    }
 
-    if request.method == "GET":
+    if request.method == "POST":
 
-        context={
-            'message' : ''
-        }
-        return render(request, template_name, context)
+        form = forms.UploadForm(request.POST, request.FILES)
 
-    if 'dl' in request.POST:
+        if form.is_valid():
 
-        try:
+            data_file = form.cleaned_data['data_file']
 
-            csv_text = request.POST.get('csv_text')
-            segmented_list = [[item.strip() for item in row.split(',')] for row in csv_text.split('\n')]
-            response = HttpResponse(content_type = 'text/csv')
-            response['Content-Disposition'] = 'attachment; filename = "export_data.csv"'
-            writer = csv.writer(response)
-            writer.writerow(segmented_list[0])
-            writer.writerows(segmented_list[1:])
-            return response
+            if data_file != None:
 
-        except:
+                if not data_file.name.endswith('.csv'):
 
-            context={
-                'message': 'Something went wrong'
-            }
-            return render(request, template_name, context)
+                    context={
+                        'success': False,
+                        'form': form,
+                        'error_message': 'Please ensure that the uploaded file is a CSV file'
+                    }
+                    return render(request, template_name, context)
 
-    elif 'package' in request.POST:
+            else:
 
-        key = generate_key(10)
-        csv_text = request.POST.get('csv_text')
-        segmented_list = [[item.strip() for item in row.split(',')] for row in csv_text.split('\n')]
-        file_name = key + ".csv"
+                context = {
+                    'success': False,
+                    'form': form,
+                    'error_message': 'Please provide a CSV File or Key'
+                }
+                return render(request, template_name, context)
 
-        with open(file_name,'w') as f:
+            try:
 
-            writer = csv.writer(f)
-            writer.writerow(segmented_list[0])
-            writer.writerows(segmented_list[1:])
+                key = generate_key(10)
+                file_name = key + ".csv"
+                file_name = default_storage.save(file_name, data_file)
+                temp = TemporaryFile(key = key, data = file_name)
+                temp.save()
+                context = {
+                    'success': True,
+                    'form': form,
+                    'message': 'Saved! \n Here is your key: ' + key,
+                }
+                return render(request, template_name, context)
 
-        file_name = default_storage.save(file_name, open(file_name))
-        temp = TemporaryFile(key = key, data = file_name)
-        temp.save()
-        context={
-            'message': 'Saved! \n Here is your key: ' + key
-        }
-        return render(request, template_name, context)
+            except:
+
+                context = {
+                    'success': False,
+                    'form': form,
+                    'error_message': 'Something went wrong while trying to save the data',
+                }
+                return render(request, template_name, context)
+
+    return render(request, template_name, context)
 
 
 

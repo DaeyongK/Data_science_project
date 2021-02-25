@@ -79,3 +79,6 @@ class VarForm(forms.Form):
     data_file = forms.FileField(required=False, label = 'CSV File')
     rc = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Row'), (False, 'Column')], label = 'Row or Column?')
     num = forms.IntegerField(label = 'Row/Column Number')
+
+class UploadForm(forms.Form):
+    data_file = forms.FileField(required=False, label = 'CSV File')
