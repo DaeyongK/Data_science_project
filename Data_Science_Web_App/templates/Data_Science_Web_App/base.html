@@ -39,52 +39,40 @@
             </li>
 
             <li class="nav-item">
+              <a class="nav-link" href="{% url 'Data_Science_Web_App:data_upload' %}">Data Upload</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Data_Science_Web_App:AlgorithmView' %}">Algorithms</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'Data_Science_Web_App:VisualView' %}">Visualizations</a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'Data_Science_Web_App:AboutView' %}">About Us</a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'Data_Science_Web_App:MainPageView' %}">Algorithms</a>
-            </li>
-
-            <li class="nav-item dropdown dmenu">
-
-              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Our Service
-              </a>
-
-              <div class="dropdown-menu sm-menu">
-                <a class="dropdown-item" href="{% url 'Data_Science_Web_App:variable_statistics' %}">Variable Statistics</a>
-                <a class="dropdown-item" href="{% url 'Data_Science_Web_App:plot' %}">Scatter Plot</a>
-                <a class="dropdown-item" href="{% url 'Data_Science_Web_App:histoplot' %}">Histogram</a>
-                <a class="dropdown-item" href="{% url 'Data_Science_Web_App:package' %}">Packaging</a>
-                <a class="dropdown-item" href="{% url 'Data_Science_Web_App:visual' %}">Visualization</a>
-              </div>
-
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact Us</a>
-            </li>
+            <div id="myDropdownNav" class="dropdown-content topcorner">
+              <input type="text" placeholder="Search..." id="myInputNav" onkeyup="filterFunctionNav()">
+              <a href="{% url 'Data_Science_Web_App:variable_statistics' %}">Variable Statistics</a>
+              <a href="{% url 'Data_Science_Web_App:log' %}">Logarithm</a>
+              <a href="{% url 'Data_Science_Web_App:gaussian' %}">Gaussian Smoothing</a>
+              <a href="{% url 'Data_Science_Web_App:density' %}">Density Function</a>
+              <a href="{% url 'Data_Science_Web_App:transformation' %}">Data Transformation</a>
+              <a href="{% url 'Data_Science_Web_App:custom' %}">Custom Algorithm</a>
+              <a href="{% url 'Data_Science_Web_App:plot' %}">Scatter Plot</a>
+              <a href="{% url 'Data_Science_Web_App:histoplot' %}">Histogram</a>
+              <a href="{% url 'Data_Science_Web_App:visual' %}">Visualization</a>
+              <a href="{% url 'Data_Science_Web_App:interpolation' %}">Interpolation</a>
+              <a href="{% url 'Data_Science_Web_App:curve_fitter' %}">Curve Fitter</a>
+            </div>
 
           </ul>
         </div>
       </nav>
-      <div id="myDropdownNav" class="dropdown-content topcorner">
-        <input type="text" placeholder="Search..." id="myInputNav" onkeyup="filterFunctionNav()">
-        <a href="{% url 'Data_Science_Web_App:variable_statistics' %}">Variable Statistics</a>
-        <a href="{% url 'Data_Science_Web_App:plot' %}">Scatter Plot</a>
-        <a href="{% url 'Data_Science_Web_App:histoplot' %}">Histogram</a>
-        <a href="{% url 'Data_Science_Web_App:package' %}">Packaging</a>
-        <a href="{% url 'Data_Science_Web_App:visual' %}">Visualization</a>
-        <a href="{% url 'Data_Science_Web_App:gaussian' %}">Gaussian Smoothing</a>
-        <a href="{% url 'Data_Science_Web_App:density' %}">Density Function</a>
-        <a href="{% url 'Data_Science_Web_App:interpolation' %}">Interpolation</a>
-        <a href="{% url 'Data_Science_Web_App:transformation' %}">Data Transformation</a>
-        <a href="{% url 'Data_Science_Web_App:curve_fitter' %}">Curve Fitter</a>
-        <a href="{% url 'Data_Science_Web_App:log' %}">Logarithm</a>
-      </div>
       {% block body_block %}
       {% endblock %}
-
   </body>
 </html>

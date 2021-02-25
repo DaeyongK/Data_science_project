@@ -1,7 +1,7 @@
 var stepTgl = 0;
 
 var acc = document.getElementsByClassName("accordion");
-console.log(acc)
+
 var panel = document.getElementsByClassName('panel');
 
 for (var i = 0; i < acc.length; i++) {

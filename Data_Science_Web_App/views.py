@@ -31,10 +31,15 @@ graph_path = os.path.abspath('media/graphs')
 class AboutView(TemplateView):
     template_name = 'Data_Science_Web_App/about.html'
 
-class MainPageView(TemplateView):
-    template_name = 'Data_Science_Web_App/main_page.html'
 
 
+class AlgorithmView(TemplateView):
+    template_name = 'Data_Science_Web_App/algorithms.html'
+
+
+
+class VisualView(TemplateView):
+    template_name = 'Data_Science_Web_App/visualization.html'
 
 
 
@@ -228,7 +233,7 @@ def variable_statistics(request):
             'IQR': IQR,
             'range': range
         }
-        
+
         return render(request, template_name, context)
 
 
