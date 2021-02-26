@@ -63,3 +63,40 @@ def xyplot(file, xColN, yColN, xLbl, yLbl, ttl, xR, yR, alphaVal):
 
     #Return figure
     return fig
+
+
+
+# import pandas as pandas
+# import matplotlib as matplotlib
+# import matplotlib.pyplot as pyplot
+# def xyplot(file):
+#
+#     #Selects user input columns
+#     xCol = file.iloc[:, 1]
+#     yCol = file.iloc[:, 2]
+#
+#     #Formatting that makes me happy
+#     matplotlib.rcParams['font.sans-serif'] = "Times New Roman"
+#     matplotlib.rcParams['font.family'] = "sans-serif"
+#     matplotlib.rcParams.update({'font.size': 15})
+#     matplotlib.rcParams['text.color'] = "black"
+#     matplotlib.rcParams['axes.labelcolor'] = "black"
+#     matplotlib.rcParams['xtick.color'] = "black"
+#     matplotlib.rcParams['ytick.color'] = "black"
+#
+#     #Creates figure
+#     fig = pyplot.figure()
+#     ax = fig.add_subplot()
+#
+#     alphaVal = 0.2
+#
+#     #Creates scatter plot
+#     ax.scatter(xCol, yCol, marker = ".", color = "tab:orange", alpha = alphaVal)
+#
+#     #If axes labels not given, uses dataframe headers
+#     ax.set_xlabel("pog X label")
+#     ax.set_ylabel("pogger Y label")
+#     ax.set_title("Cactus")
+#
+#     #Return figure
+#     return fig

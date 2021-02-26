@@ -18,4 +18,5 @@ urlpatterns = [
     path('curve_fitter/', views.curve_fitter, name='curve_fitter'),
     path('log/', views.log, name='log'),
     path('custom/', views.custom, name='custom'),
+    path('custom_visualization/', views.custom_visualization, name='custom_visualization'),
 ]

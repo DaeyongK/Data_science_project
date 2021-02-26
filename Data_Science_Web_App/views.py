@@ -565,7 +565,8 @@ def custom(request):
                     context={
                         'success': True,
                         'form': form,
-                        'message': 'Saved! \n Here is your key: ' + key,
+                        'message': 'Saved! \n Here is your key: ',
+                        'key': key,
                         'error_message': ' '
                     }
                     return render(request, template_name, context)
@@ -590,6 +591,96 @@ def custom(request):
                 'success': True,
                 'form': form,
                 'error_message': 'The algorithm should have processed, but something went wrong'
+            }
+
+    return render(request, template_name, context)
+
+
+
+
+
+def custom_visualization(request):
+
+    template_name = 'Data_Science_Web_App/custom_visualization.html'
+    form = forms.CustomVisualForm()
+    context={
+        'success': False,
+        'form': form,
+        'error_message': 'Please fill out the required fields'
+    }
+
+    if request.method == 'POST':
+
+        form = forms.CustomVisualForm(request.POST, request.FILES)
+
+        if form.is_valid():
+
+            data_file = form.cleaned_data['data_file']
+            key = form.cleaned_data['key']
+            code = form.cleaned_data['code']
+
+            if data_file != None:
+
+                if not data_file.name.endswith('.csv'):
+
+                    context={
+                        'success': False,
+                        'form': form,
+                        'error_message': 'Please ensure that the uploaded file is a CSV file'
+                    }
+                    return render(request, template_name, context)
+
+                data_set = pd.read_csv(data_file)
+
+            elif key != None:
+
+                try:
+
+                    csv_file = locate(key)
+                    data_set = pd.read_csv(csv_file)
+
+                except:
+
+                    context = {
+                        'success': False,
+                        'form': form,
+                        'error_message': 'The key was invalid'
+                    }
+                    return render(request, template_name, context)
+
+            else:
+
+                context = {
+                    'success': False,
+                    'form': form,
+                    'error_message': 'Please provide a CSV File or Key'
+                }
+                return render(request, template_name, context)
+
+            try:
+
+                global run_code2, dataset2
+                dataset2 = data_set
+                func_name = code[code.find("def "):code.find("(")]+"(dataset2)"
+                run_code2 = code + "\n" + "return_png = " + func_name[func_name.rfind(" ")+1:]
+                exec("global run_code2, dataset2; \n" + run_code2, globals())
+                figure = return_png
+                graph_image = 'custom.png'
+                figure.savefig(os.path.join(graph_path, graph_image))
+
+            except:
+
+                context={
+                    'success': False,
+                    'form': form,
+                    'error_message': 'Something went wrong, please check the guidelines'
+                }
+                return render(request, template_name, context)
+
+            context = {
+                'success': True,
+                'form': form,
+                'error_message': 'The graph should have been generated, but something went wrong'
             }
 
     return render(request, template_name, context)
@@ -876,7 +967,8 @@ def log(request):
                     context={
                         'success': True,
                         'form': form,
-                        'message': 'Saved! \n Here is your key: ' + key,
+                        'message': 'Saved! \n Here is your key: ',
+                        'key': key,
                         'error_message': ' '
                     }
                     return render(request, template_name, context)
@@ -952,7 +1044,8 @@ def package(request):
                 context = {
                     'success': True,
                     'form': form,
-                    'message': 'Saved! \n Here is your key: ' + key,
+                    'message': 'Saved! \n Here is your key: ',
+                    'key': key,
                 }
                 return render(request, template_name, context)
 

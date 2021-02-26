@@ -80,5 +80,10 @@ class VarForm(forms.Form):
     rc = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Row'), (False, 'Column')], label = 'Row or Column?')
     num = forms.IntegerField(label = 'Row/Column Number')
 
+class CustomVisualForm(forms.Form):
+    data_file = forms.FileField(required=False, label = 'CSV File')
+    key = forms.CharField(required=False, label = 'Key')
+    code = forms.CharField(widget=forms.Textarea(attrs={'rows':20, 'cols':100, 'style': 'width:100%;'}), label = 'Code')
+
 class UploadForm(forms.Form):
     data_file = forms.FileField(required=False, label = 'CSV File')

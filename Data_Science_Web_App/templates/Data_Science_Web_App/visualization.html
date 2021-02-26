@@ -3,7 +3,11 @@
 {% block body_block %}
 <div class="container">
   <div class="jumbotron">
-    <h1>Algorithms</h1>
+    <h1 style = "display:inline-block;">Visualizations</h1>
+    <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:custom_visualization' %}" method="GET">
+      {% csrf_token %}
+      <input type="submit" value="Custom Visualization">
+    </form>
     <div id = "myDropdown" class="dropdown-content">
       <input type="text" placeholder="Search Visualizations..." id="myInput" onkeyup="filterFunction()">
 
