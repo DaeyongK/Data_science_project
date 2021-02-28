@@ -2,8 +2,8 @@ from django import forms
 # from django.core import validators
 
 class PlotChartForm(forms.Form):
-    data_file = forms.FileField(required=False, label = 'CSV File')
     key = forms.CharField(required=False, label = 'Key')
+    data_file = forms.FileField(required=False, label = 'CSV File')
     xIndex = forms.IntegerField(label = 'Index of X axis')
     yIndex = forms.IntegerField(label = 'Index of Y axis')
     xLabel = forms.CharField(required=False, label = 'Label for X axis')
@@ -17,8 +17,8 @@ class PlotChartForm(forms.Form):
 
 
 class HistoForm(forms.Form):
-    data_file = forms.FileField(required=False, label = 'CSV File')
     key = forms.CharField(required=False, label = 'Key')
+    data_file = forms.FileField(required=False, label = 'CSV File')
     colN = forms.IntegerField(label = 'Column Number')
     xLabel = forms.CharField(required=False, label = 'Label for X axis')
     yLabel = forms.CharField(required=False, label = 'Label for Y axis')
@@ -33,8 +33,8 @@ class HistoForm(forms.Form):
 
 
 class InterpolationForm(forms.Form):
-    data_file = forms.FileField(required=False, label = 'CSV File')
     key = forms.CharField(required=False, label = 'Key')
+    data_file = forms.FileField(required=False, label = 'CSV File')
     xIndex = forms.IntegerField(label = 'Index of X axis')
     yIndex = forms.IntegerField(label = 'Index of Y axis')
     xLabel = forms.CharField(required=False, label = 'Label for X axis')
@@ -47,8 +47,8 @@ class InterpolationForm(forms.Form):
     iKind = forms.CharField(required=False, label = 'Kind of Interpolation')
 
 class CurveFitterForm(forms.Form):
-    data_file = forms.FileField(required=False, label = 'CSV File')
     key = forms.CharField(required=False, label = 'Key')
+    data_file = forms.FileField(required=False, label = 'CSV File')
     xIndex = forms.IntegerField(label = 'Index of X axis')
     yIndex = forms.IntegerField(label = 'Index of Y axis')
     xLabel = forms.CharField(required=False, label = 'Label for X axis')
@@ -62,16 +62,16 @@ class CurveFitterForm(forms.Form):
     y_func = forms.CharField(required=False, label = 'Y Function')
 
 class LogForm(forms.Form):
-    data_file = forms.FileField(required=False, label = 'CSV File')
     key = forms.CharField(required=False, label = 'Key')
+    data_file = forms.FileField(required=False, label = 'CSV File')
     colN = forms.IntegerField(label = 'Column Number')
     negative = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Yes'), (False, 'No')], label = 'Do you want your values to be non negative?')
     package = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Package'), (False, 'Download')], label = 'Do you want to package or download your data?')
 
 class CustomForm(forms.Form):
-    data_file = forms.FileField(required=False, label = 'CSV File')
     key = forms.CharField(required=False, label = 'Key')
-    code = forms.CharField(widget=forms.Textarea(attrs={'rows':20, 'cols':100, 'style': 'width:100%;'}), label = 'Code')
+    data_file = forms.FileField(required=False, label = 'CSV File')
+    code = forms.CharField(widget=forms.Textarea(attrs={'rows':10, 'cols':100, 'style': 'width:100%;'}), label = 'Code')
     package = forms.ChoiceField(widget=forms.RadioSelect, choices=[(True, 'Package'), (False, 'Download')], label = 'Do you want to package or download your data?')
 
 class VarForm(forms.Form):
@@ -81,9 +81,9 @@ class VarForm(forms.Form):
     num = forms.IntegerField(label = 'Row/Column Number')
 
 class CustomVisualForm(forms.Form):
-    data_file = forms.FileField(required=False, label = 'CSV File')
     key = forms.CharField(required=False, label = 'Key')
-    code = forms.CharField(widget=forms.Textarea(attrs={'rows':20, 'cols':100, 'style': 'width:100%;'}), label = 'Code')
+    data_file = forms.FileField(required=False, label = 'CSV File')
+    code = forms.CharField(widget=forms.Textarea(attrs={'rows':10, 'cols':100, 'style': 'width:100%;'}), label = 'Code')
 
 class UploadForm(forms.Form):
     data_file = forms.FileField(required=False, label = 'CSV File')

@@ -11,7 +11,13 @@
     <div id = "myDropdown" class="dropdown-content">
       <input type="text" placeholder="Search Algorithms..." id="myInput" onkeyup="filterFunction()">
 
-      <button class="accordion">Variable Statistics</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Variable Statistics</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:variable_statistics' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#VariableStatsModal">
@@ -41,14 +47,15 @@
         </div>
         <br>
         <br>
-          <form action="{% url 'Data_Science_Web_App:variable_statistics' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
-      <button class="accordion">Logarithm</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Logarithm</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:log' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LogModal">
@@ -76,16 +83,15 @@
             </div>
           </div>
         </div>
-        <br>
-        <br>
-          <form action="{% url 'Data_Science_Web_App:log' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
-      <button class="accordion">Gaussian Smoothing</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Gaussian Smoothing</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:gaussian' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#GaussianModal">
@@ -115,14 +121,15 @@
         </div>
         <br>
         <br>
-          <form action="{% url 'Data_Science_Web_App:gaussian' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
-      <button class="accordion">Density Function</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Density Function</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:density' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DensityModal">
@@ -152,14 +159,15 @@
         </div>
         <br>
         <br>
-          <form action="{% url 'Data_Science_Web_App:density' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
-      <button class="accordion">Data Transformation</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Data Transformation</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:transformation' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DataTransformModal">
@@ -189,11 +197,6 @@
         </div>
         <br>
         <br>
-          <form action="{% url 'Data_Science_Web_App:transformation' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
     </div>

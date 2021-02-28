@@ -11,7 +11,13 @@
     <div id = "myDropdown" class="dropdown-content">
       <input type="text" placeholder="Search Visualizations..." id="myInput" onkeyup="filterFunction()">
 
-      <button class="accordion">Scatter Plot</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Scatter Plot</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:plot' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ScatterModal">
@@ -41,14 +47,15 @@
         </div>
         <br>
         <br>
-          <form action="{% url 'Data_Science_Web_App:plot' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
-      <button class="accordion">Histogram</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Histogram</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:histoplot' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#HistoModal">
@@ -78,14 +85,15 @@
         </div>
         <br>
         <br>
-          <form action="{% url 'Data_Science_Web_App:histoplot' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
-      <button class="accordion">Visualization</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Visualization</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:visual' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#VisualModal">
@@ -115,14 +123,15 @@
         </div>
         <br>
         <br>
-          <form action="{% url 'Data_Science_Web_App:visual' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
-      <button class="accordion">Interpolation of NAN</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Interpolation</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:interpolation' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#InterpolationModal">
@@ -152,14 +161,15 @@
         </div>
         <br>
         <br>
-          <form action="{% url 'Data_Science_Web_App:interpolation' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
-      <button class="accordion">Curve Fitter</button>
+      <button class="accordion">
+        <p style = "display:inline-block;">Curve Fitter</p>
+        <form style = "display:inline-block;float:right;" action="{% url 'Data_Science_Web_App:curve_fitter' %}" method="GET">
+          {% csrf_token %}
+          <input type="submit" value="Select">
+        </form>
+      </button>
       <div class="panel">
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CurveFitterModal">
@@ -189,11 +199,6 @@
         </div>
         <br>
         <br>
-          <form action="{% url 'Data_Science_Web_App:curve_fitter' %}" method="GET">
-            {% csrf_token %}
-            <input type="submit" value="Select">
-          </form>
-          <p></p>
       </div>
 
     </div>
